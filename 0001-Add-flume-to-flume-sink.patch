@@ -1,0 +1,27 @@
+From c4b5bcf6913fa830a794e5313f818544148c516e Mon Sep 17 00:00:00 2001
+From: Athenas Jimenez Gonzalez <athenas.jimenez.gonzalez@intel.com>
+Date: Wed, 7 Dec 2016 17:13:32 +0000
+Subject: [PATCH] Add flume to flume-sink
+
+---
+ external/flume-sink/pom.xml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/external/flume-sink/pom.xml b/external/flume-sink/pom.xml
+index a08e1fb..f174999 100644
+--- a/external/flume-sink/pom.xml
++++ b/external/flume-sink/pom.xml
+@@ -114,6 +114,10 @@
+       <groupId>org.apache.avro</groupId>
+       <artifactId>avro</artifactId>
+     </dependency>
++    <dependency>
++      <groupId>org.apache.flume</groupId>
++      <artifactId>flume-ng-configuration</artifactId>
++    </dependency>
+   </dependencies>
+   <build>
+     <outputDirectory>target/scala-${scala.binary.version}/classes</outputDirectory>
+-- 
+2.9.2
+

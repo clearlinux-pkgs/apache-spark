@@ -1,0 +1,39 @@
+From 069f30ceb6b98729762013cb3faa40b1631aabc5 Mon Sep 17 00:00:00 2001
+From: Athenas Jimenez Gonzalez <athenas.jimenez.gonzalez@intel.com>
+Date: Thu, 1 Dec 2016 19:30:50 +0000
+Subject: [PATCH] Add slf4j dep to flume-sink
+
+---
+ external/flume-sink/pom.xml | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/external/flume-sink/pom.xml b/external/flume-sink/pom.xml
+index 4e7e17d..d1e566e 100644
+--- a/external/flume-sink/pom.xml
++++ b/external/flume-sink/pom.xml
+@@ -94,6 +94,22 @@
+       <groupId>org.apache.spark</groupId>
+       <artifactId>spark-tags_${scala.binary.version}</artifactId>
+     </dependency>
++    <dependency>
++      <groupId>org.slf4j</groupId>
++      <artifactId>slf4j-api</artifactId>
++    </dependency>
++    <dependency>
++      <groupId>org.slf4j</groupId>
++      <artifactId>slf4j-log4j12</artifactId>
++    </dependency>
++    <dependency>
++      <groupId>org.slf4j</groupId>
++      <artifactId>jul-to-slf4j</artifactId>
++    </dependency>
++    <dependency>
++      <groupId>org.slf4j</groupId>
++      <artifactId>jcl-over-slf4j</artifactId>
++    </dependency>
+   </dependencies>
+   <build>
+     <outputDirectory>target/scala-${scala.binary.version}/classes</outputDirectory>
+-- 
+2.9.2
+

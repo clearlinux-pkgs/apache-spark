@@ -1,0 +1,38 @@
+From 538e8c54940df2a81bd6917c607e0753819ceb71 Mon Sep 17 00:00:00 2001
+From: Athenas Jimenez Gonzalez <athenas.jimenez.gonzalez@intel.com>
+Date: Fri, 2 Dec 2016 20:34:51 +0000
+Subject: [PATCH] Add htmlunit to core/pom.xml
+
+---
+ core/pom.xml | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/core/pom.xml b/core/pom.xml
+index ac50171..1b4fe34 100644
+--- a/core/pom.xml
++++ b/core/pom.xml
+@@ -136,11 +136,16 @@
+       <version>${javaxservlet.version}</version>
+     </dependency>
+ 
+-      <dependency>
+-        <groupId>javax.ws.rs</groupId>
+-        <artifactId>javax.ws.rs-api</artifactId>
+-        <version>2.0.1</version>
+-      </dependency>
++    <dependency>
++      <groupId>javax.ws.rs</groupId>
++      <artifactId>javax.ws.rs-api</artifactId>
++      <version>2.0.1</version>
++    </dependency>
++    <dependency>
++      <groupId>net.sourceforge.htmlunit</groupId>
++      <artifactId>htmlunit</artifactId>
++      <version>2.18</version>
++    </dependency>
+     <dependency>
+       <groupId>org.apache.commons</groupId>
+       <artifactId>commons-lang3</artifactId>
+-- 
+2.9.2
+
