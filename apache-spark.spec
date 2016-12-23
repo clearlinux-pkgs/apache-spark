@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.0.0
-Release  : 3
+Release  : 4
 URL      : http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0.tgz
 Source0  : http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0.tgz
 Patch0   : 0001-Properly-style-for-pom.patch
