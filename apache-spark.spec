@@ -308,6 +308,10 @@ python3 /usr/share/java-utils/mvn_build.py -X -- -Dmaven.test.failure.ignore=tru
 
 %install
 xmvn-install  -R .xmvn-reactor -n apache-spark -d %{buildroot}
+
+# Remove unnecesary cmd
+find bin/ -iname *.cmd -delete
+
 cp -R R/ bin/ conf/ data/ examples/ licenses/ python/ sbin/ yarn/ %{buildroot}/usr/share/apache-spark 
 rm assembly/target/scala-2.11/jars/spark-*
 cp assembly/target/scala-2.11/jars/* %{buildroot}/usr/share/apache-spark/jars
@@ -384,27 +388,14 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/R/pkg/tests/run-all.R
 /usr/share/apache-spark/R/run-tests.sh
 /usr/share/apache-spark/bin/beeline
-/usr/share/apache-spark/bin/beeline.cmd
-/usr/share/apache-spark/bin/load-spark-env.cmd
 /usr/share/apache-spark/bin/load-spark-env.sh
 /usr/share/apache-spark/bin/pyspark
-/usr/share/apache-spark/bin/pyspark.cmd
-/usr/share/apache-spark/bin/pyspark2.cmd
 /usr/share/apache-spark/bin/run-example
-/usr/share/apache-spark/bin/run-example.cmd
 /usr/share/apache-spark/bin/spark-class
-/usr/share/apache-spark/bin/spark-class.cmd
-/usr/share/apache-spark/bin/spark-class2.cmd
 /usr/share/apache-spark/bin/spark-shell
-/usr/share/apache-spark/bin/spark-shell.cmd
-/usr/share/apache-spark/bin/spark-shell2.cmd
 /usr/share/apache-spark/bin/spark-sql
 /usr/share/apache-spark/bin/spark-submit
-/usr/share/apache-spark/bin/spark-submit.cmd
-/usr/share/apache-spark/bin/spark-submit2.cmd
 /usr/share/apache-spark/bin/sparkR
-/usr/share/apache-spark/bin/sparkR.cmd
-/usr/share/apache-spark/bin/sparkR2.cmd
 /usr/share/apache-spark/conf/docker.properties.template
 /usr/share/apache-spark/conf/fairscheduler.xml.template
 /usr/share/apache-spark/conf/log4j.properties.template
