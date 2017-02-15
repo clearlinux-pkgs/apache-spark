@@ -13,6 +13,7 @@ Patch6   : 0001-Add-flume-to-flume-sink.patch
 Summary  : R Frontend for Apache Spark
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSD-4-Clause-UC CDDL-1.0 ECL-2.0 HPND MIT PostgreSQL Python-2.0
+Requires : apache-spark-bin
 BuildRequires : apache-ant
 BuildRequires : apache-maven
 BuildRequires : apache-maven2
@@ -291,6 +292,13 @@ It creates a single tar.gz file that includes all needed dependency of the proje
 except for org.apache.hadoop.* jars that are supposed to be available from the
 deployed Hadoop cluster.
 
+%package bin
+Summary: bin components for the apache-spark package.
+Group: Binaries
+
+%description bin
+bin components for the apache-spark package.
+
 %prep
 %setup -q -n spark-2.0.0
 %patch0 -p1 
@@ -320,7 +328,40 @@ mkdir -p %{buildroot}/usr/share/apache-spark/examples/
 mv examples/target/scala-2.11/jars %{buildroot}/usr/share/apache-spark/examples/
 mv examples/src %{buildroot}/usr/share/apache-spark/examples/
 
+# Create symlinks to /usr/bin
+mkdir -p %{buildroot}/usr/bin
+ln -s ../share/apache-spark/bin/beeline %{buildroot}/usr/bin/beeline
+ln -s ../share/apache-spark/bin/load-spark-env.sh %{buildroot}/usr/bin/load-spark-env.sh
+ln -s ../share/apache-spark/bin/pyspark %{buildroot}/usr/bin/pyspark
+ln -s ../share/apache-spark/bin/run-example %{buildroot}/usr/bin/run-example
+ln -s ../share/apache-spark/bin/spark-class %{buildroot}/usr/bin/spark-class
+ln -s ../share/apache-spark/bin/spark-shell %{buildroot}/usr/bin/spark-shell
+ln -s ../share/apache-spark/bin/spark-sql %{buildroot}/usr/bin/spark-sql
+ln -s ../share/apache-spark/bin/spark-submit %{buildroot}/usr/bin/spark-submit
+ln -s ../share/apache-spark/bin/sparkR %{buildroot}/usr/bin/sparkR
+
 echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/beeline
+/usr/bin/load-spark-env.sh
+/usr/bin/pyspark
+/usr/bin/run-example
+/usr/bin/spark-class
+/usr/bin/spark-shell
+/usr/bin/spark-sql
+/usr/bin/spark-submit
+/usr/bin/sparkR
+/usr/share/apache-spark/bin/beeline
+/usr/share/apache-spark/bin/load-spark-env.sh
+/usr/share/apache-spark/bin/pyspark
+/usr/share/apache-spark/bin/run-example
+/usr/share/apache-spark/bin/spark-class
+/usr/share/apache-spark/bin/spark-shell
+/usr/share/apache-spark/bin/spark-sql
+/usr/share/apache-spark/bin/spark-submit
+/usr/share/apache-spark/bin/sparkR
 
 %files
 %defattr(-,root,root,-)
@@ -390,15 +431,6 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/R/pkg/src-native/string_hash_code.c
 /usr/share/apache-spark/R/pkg/tests/run-all.R
 /usr/share/apache-spark/R/run-tests.sh
-/usr/share/apache-spark/bin/beeline
-/usr/share/apache-spark/bin/load-spark-env.sh
-/usr/share/apache-spark/bin/pyspark
-/usr/share/apache-spark/bin/run-example
-/usr/share/apache-spark/bin/spark-class
-/usr/share/apache-spark/bin/spark-shell
-/usr/share/apache-spark/bin/spark-sql
-/usr/share/apache-spark/bin/spark-submit
-/usr/share/apache-spark/bin/sparkR
 /usr/share/apache-spark/conf/docker.properties.template
 /usr/share/apache-spark/conf/fairscheduler.xml.template
 /usr/share/apache-spark/conf/log4j.properties.template
