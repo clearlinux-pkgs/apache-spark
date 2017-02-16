@@ -3,6 +3,7 @@ Version  : 2.0.0
 Release  : 6
 URL      : http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0.tgz
 Source0  : http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0.tgz
+Source1  : spark-script
 Patch0   : 0001-Properly-style-for-pom.patch
 Patch1   : 0001-Add-leveldb-in-network-shuffle.patch
 Patch2   : 0001-Add-javax.ws.rs-in-core-pom.xml.patch
@@ -328,26 +329,20 @@ mkdir -p %{buildroot}/usr/share/apache-spark/examples/
 mv examples/target/scala-2.11/jars %{buildroot}/usr/share/apache-spark/examples/
 mv examples/src %{buildroot}/usr/share/apache-spark/examples/
 
-# Create symlinks to /usr/bin
+# Add helper scripts
 mkdir -p %{buildroot}/usr/bin
-ln -s ../share/apache-spark/bin/beeline %{buildroot}/usr/bin/beeline
-ln -s ../share/apache-spark/bin/load-spark-env.sh %{buildroot}/usr/bin/load-spark-env.sh
-ln -s ../share/apache-spark/bin/pyspark %{buildroot}/usr/bin/pyspark
-ln -s ../share/apache-spark/bin/run-example %{buildroot}/usr/bin/run-example
-ln -s ../share/apache-spark/bin/spark-class %{buildroot}/usr/bin/spark-class
-ln -s ../share/apache-spark/bin/spark-shell %{buildroot}/usr/bin/spark-shell
-ln -s ../share/apache-spark/bin/spark-sql %{buildroot}/usr/bin/spark-sql
-ln -s ../share/apache-spark/bin/spark-submit %{buildroot}/usr/bin/spark-submit
-ln -s ../share/apache-spark/bin/sparkR %{buildroot}/usr/bin/sparkR
+for cmd in beeline pyspark spark-class spark-shell spark-sql spark-submit sparkR
+do 
+    sed s/@@CMD@@/$cmd/ %{SOURCE1} >%{buildroot}/usr/bin/$cmd
+    chmod +x %{buildroot}/usr/bin/$cmd
+done
 
 echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/beeline
-/usr/bin/load-spark-env.sh
 /usr/bin/pyspark
-/usr/bin/run-example
 /usr/bin/spark-class
 /usr/bin/spark-shell
 /usr/bin/spark-sql
