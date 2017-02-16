@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export SPARK_HOME="${SPARK_HOME:-/usr/share/apache-spark}"
+$SPARK_HOME/bin/@@CMD@@ "$@"
