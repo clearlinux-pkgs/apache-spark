@@ -11,6 +11,7 @@ Patch3   : 0001-Add-slf4j-dep-to-flume-sink.patch
 Patch4   : 0001-Add-htmlunit-to-core-pom.xml.patch
 Patch5   : 0001-Add-avro-to-flume-sink-pom.patch
 Patch6   : 0001-Add-flume-to-flume-sink.patch
+Patch7   : 0001-Import-GzipHandler-from-jetty-new-version.patch
 Summary  : R Frontend for Apache Spark
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSD-4-Clause-UC CDDL-1.0 ECL-2.0 HPND MIT PostgreSQL Python-2.0
@@ -127,7 +128,6 @@ BuildRequires : jdk-jersey-core
 BuildRequires : jdk-jersey-project
 BuildRequires : jdk-jets3t
 BuildRequires : jdk-jetty
-BuildRequires : jdk-jetty92
 BuildRequires : jdk-jline
 BuildRequires : jdk-jna
 BuildRequires : jdk-joda-time
@@ -309,6 +309,7 @@ bin components for the apache-spark package.
 %patch4 -p1 
 %patch5 -p1 
 %patch6 -p1 
+%patch7 -p1 
 
 %build
 # Specify to Xmvn where the jars should be installed.
