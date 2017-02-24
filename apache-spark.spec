@@ -1669,7 +1669,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/httpmime-4.5.2.jar
 /usr/share/apache-spark/jars/ivy-2.4.0.jar
 /usr/share/apache-spark/jars/jackson-annotations-2.6.5.jar
-/usr/share/apache-spark/jars/jackson-core-2.5.0.jar
+/usr/share/apache-spark/jars/jackson-core-2.7.6.jar
 /usr/share/apache-spark/jars/jackson-core-asl-1.9.13.jar
 /usr/share/apache-spark/jars/jackson-databind-2.6.5.jar
 /usr/share/apache-spark/jars/jackson-mapper-asl-1.9.13.jar
