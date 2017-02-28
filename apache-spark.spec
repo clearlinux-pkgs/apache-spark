@@ -314,7 +314,8 @@ bin components for the apache-spark package.
 %build
 # Specify to Xmvn where the jars should be installed.
 python3 /usr/share/java-utils/mvn_file.py ":{*}:jar:" spark/@1 /usr/share/apache-spark/jars/@1
-python3 /usr/share/java-utils/mvn_build.py -X -- -Dmaven.test.failure.ignore=true
+#python3 /usr/share/java-utils/mvn_build.py -X -- -Dmaven.test.failure.ignore=true
+python3 /usr/share/java-utils/mvn_build.py -X -- -DskipTests
 
 %install
 xmvn-install  -R .xmvn-reactor -n apache-spark -d %{buildroot}
