@@ -339,6 +339,10 @@ do
     chmod +x %{buildroot}/usr/bin/$cmd
 done
 
+# Symlink to xml-apis.jar. 
+# Fix for java.lang.NoClassDefFoundError: org/w3c/dom/ElementTraversal
+ln -s /usr/share/java/xml-apis.jar %{buildroot}/usr/share/apache-spark/jars/xml-apis.jar
+
 echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 
 %files bin
@@ -1746,5 +1750,6 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/xalan-2.7.2.jar
 /usr/share/apache-spark/jars/xbean-asm5-shaded-4.4.jar
 /usr/share/apache-spark/jars/xercesImpl-2.11.0.jar
+/usr/share/apache-spark/jars/xml-apis.jar
 /usr/share/apache-spark/jars/xmlenc-0.52.jar
 /usr/share/apache-spark/jars/zookeeper-3.4.5.jar
