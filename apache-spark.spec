@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.1.0
-Release  : 15
+Release  : 16
 URL      : http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0.tgz
 Source0  : http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0.tgz
 Source1  : spark-script
