@@ -1,8 +1,8 @@
 Name     : apache-spark
-Version  : 2.1.0
+Version  : 2.1.1
 Release  : 19
-URL      : http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0.tgz
-Source0  : http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0.tgz
+URL      : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
+Source0  : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source1  : spark-script
 Patch2   : 0001-Add-javax.ws.rs-in-core-pom.xml.patch
 Summary  : R Frontend for Apache Spark
@@ -27,14 +27,14 @@ Group: Binaries
 bin components for the apache-spark package.
 
 %prep
-%setup -q -n spark-2.1.0
+%setup -q -n spark-2.1.1
 %patch2 -p1 
 
 %build
 mkdir -p %{buildroot}
 cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
-mvn package -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.0 \
--DskipTests -Dtar -Dmaven.repo.local=%{buildroot}/.m2/repository -fn
+mvn package -Pyarn -Phadoop-2.8 -Dhadoop.version=2.8.0 \
+-DskipTests -Dtar -Dmaven.repo.local=%{buildroot}/.m2/repository
 
 %install
 rm -rf %{buildroot}
@@ -59,7 +59,7 @@ do
     chmod +x %{buildroot}/usr/bin/$cmd
 done
 
-echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
+echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 
 %files bin
 %defattr(-,root,root,-)
@@ -183,7 +183,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/data/mllib/streaming_kmeans_data_test.txt
 /usr/share/apache-spark/data/streaming/AFINN-111.txt
 /usr/share/apache-spark/examples/jars/scopt_2.11-3.3.0.jar
-/usr/share/apache-spark/examples/jars/spark-examples_2.11-2.1.0.jar
+/usr/share/apache-spark/examples/jars/spark-examples_2.11-2.1.1.jar
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaHdfsLR.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaLogQuery.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaPageRank.java
@@ -287,6 +287,8 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/mllib/JavaSummaryStatisticsExample.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/JavaSQLDataSourceExample.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/JavaSparkSQLExample.java
+/usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedTypedAggregation.java
+/usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/JavaUserDefinedUntypedAggregation.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/hive/JavaSparkHiveExample.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/streaming/JavaStructuredKafkaWordCount.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/sql/streaming/JavaStructuredNetworkWordCount.java
@@ -440,6 +442,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/examples/src/main/r/ml/naiveBayes.R
 /usr/share/apache-spark/examples/src/main/r/ml/randomForest.R
 /usr/share/apache-spark/examples/src/main/r/ml/survreg.R
+/usr/share/apache-spark/examples/src/main/resources/employees.json
 /usr/share/apache-spark/examples/src/main/resources/full_user.avsc
 /usr/share/apache-spark/examples/src/main/resources/kv1.txt
 /usr/share/apache-spark/examples/src/main/resources/people.json
@@ -608,6 +611,8 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/RDDRelation.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/SQLDataSourceExample.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/SparkSQLExample.scala
+/usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedTypedAggregation.scala
+/usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/UserDefinedUntypedAggregation.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/hive/SparkHiveExample.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/streaming/StructuredKafkaWordCount.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/sql/streaming/StructuredNetworkWordCount.scala
@@ -628,7 +633,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/streaming/clickstream/PageViewGenerator.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/streaming/clickstream/PageViewStream.scala
 /usr/share/apache-spark/jars/RoaringBitmap-0.5.11.jar
-/usr/share/apache-spark/jars/activation-1.1.1.jar
+/usr/share/apache-spark/jars/activation-1.1.jar
 /usr/share/apache-spark/jars/antlr4-runtime-4.5.3.jar
 /usr/share/apache-spark/jars/aopalliance-1.0.jar
 /usr/share/apache-spark/jars/apacheds-i18n-2.0.0-M15.jar
@@ -639,8 +644,6 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/avro-1.7.7.jar
 /usr/share/apache-spark/jars/avro-ipc-1.7.7.jar
 /usr/share/apache-spark/jars/avro-mapred-1.7.7-hadoop2.jar
-/usr/share/apache-spark/jars/base64-2.3.8.jar
-/usr/share/apache-spark/jars/bcprov-jdk15on-1.51.jar
 /usr/share/apache-spark/jars/breeze-macros_2.11-0.12.jar
 /usr/share/apache-spark/jars/breeze_2.11-0.12.jar
 /usr/share/apache-spark/jars/chill-java-0.8.0.jar
@@ -663,29 +666,30 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/commons-net-2.2.jar
 /usr/share/apache-spark/jars/compress-lzf-1.0.3.jar
 /usr/share/apache-spark/jars/core-1.1.2.jar
-/usr/share/apache-spark/jars/curator-client-2.6.0.jar
-/usr/share/apache-spark/jars/curator-framework-2.6.0.jar
-/usr/share/apache-spark/jars/curator-recipes-2.6.0.jar
+/usr/share/apache-spark/jars/curator-client-2.4.0.jar
+/usr/share/apache-spark/jars/curator-framework-2.4.0.jar
+/usr/share/apache-spark/jars/curator-recipes-2.4.0.jar
 /usr/share/apache-spark/jars/gson-2.2.4.jar
 /usr/share/apache-spark/jars/guava-14.0.1.jar
 /usr/share/apache-spark/jars/guice-3.0.jar
 /usr/share/apache-spark/jars/guice-servlet-3.0.jar
-/usr/share/apache-spark/jars/hadoop-annotations-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-auth-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-client-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-common-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-hdfs-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-app-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-common-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-core-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-jobclient-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-shuffle-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-yarn-api-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-yarn-client-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-yarn-common-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-yarn-server-common-2.7.0.jar
-/usr/share/apache-spark/jars/hadoop-yarn-server-web-proxy-2.7.0.jar
-/usr/share/apache-spark/jars/htrace-core-3.1.0-incubating.jar
+/usr/share/apache-spark/jars/hadoop-annotations-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-auth-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-client-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-common-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-hdfs-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-hdfs-client-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-app-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-common-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-core-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-jobclient-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-shuffle-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-api-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-client-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-common-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-server-common-2.8.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-server-web-proxy-2.8.0.jar
+/usr/share/apache-spark/jars/htrace-core4-4.0.1-incubating.jar
 /usr/share/apache-spark/jars/httpclient-4.5.2.jar
 /usr/share/apache-spark/jars/httpcore-4.4.4.jar
 /usr/share/apache-spark/jars/ivy-2.4.0.jar
@@ -699,21 +703,23 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/jackson-module-scala_2.11-2.6.5.jar
 /usr/share/apache-spark/jars/jackson-xc-1.9.13.jar
 /usr/share/apache-spark/jars/janino-3.0.0.jar
-/usr/share/apache-spark/jars/java-xmlbuilder-1.0.jar
 /usr/share/apache-spark/jars/javax.inject-1.jar
 /usr/share/apache-spark/jars/javax.servlet-api-3.1.0.jar
 /usr/share/apache-spark/jars/javax.ws.rs-api-2.0.1.jar
 /usr/share/apache-spark/jars/jaxb-api-2.2.2.jar
+/usr/share/apache-spark/jars/jcip-annotations-1.0.jar
 /usr/share/apache-spark/jars/jcl-over-slf4j-1.7.16.jar
 /usr/share/apache-spark/jars/jersey-client-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-common-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-container-servlet-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-container-servlet-core-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-server-2.22.2.jar
-/usr/share/apache-spark/jars/jets3t-0.9.3.jar
+/usr/share/apache-spark/jars/jets3t-0.7.1.jar
 /usr/share/apache-spark/jars/jetty-6.1.26.jar
+/usr/share/apache-spark/jars/jetty-sslengine-6.1.26.jar
 /usr/share/apache-spark/jars/jetty-util-6.1.26.jar
 /usr/share/apache-spark/jars/jline-2.12.1.jar
+/usr/share/apache-spark/jars/json-smart-1.1.1.jar
 /usr/share/apache-spark/jars/json4s-ast_2.11-3.2.11.jar
 /usr/share/apache-spark/jars/json4s-core_2.11-3.2.11.jar
 /usr/share/apache-spark/jars/json4s-jackson_2.11-3.2.11.jar
@@ -725,16 +731,17 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/leveldbjni-all-1.8.jar
 /usr/share/apache-spark/jars/log4j-1.2.17.jar
 /usr/share/apache-spark/jars/lz4-1.3.0.jar
-/usr/share/apache-spark/jars/mail-1.4.7.jar
 /usr/share/apache-spark/jars/metrics-core-3.1.2.jar
 /usr/share/apache-spark/jars/metrics-graphite-3.1.2.jar
 /usr/share/apache-spark/jars/metrics-json-3.1.2.jar
 /usr/share/apache-spark/jars/metrics-jvm-3.1.2.jar
 /usr/share/apache-spark/jars/minlog-1.3.0.jar
-/usr/share/apache-spark/jars/mx4j-3.0.2.jar
 /usr/share/apache-spark/jars/netty-3.8.0.Final.jar
 /usr/share/apache-spark/jars/netty-all-4.0.42.Final.jar
+/usr/share/apache-spark/jars/nimbus-jose-jwt-3.9.jar
 /usr/share/apache-spark/jars/objenesis-2.1.jar
+/usr/share/apache-spark/jars/okhttp-2.4.0.jar
+/usr/share/apache-spark/jars/okio-1.4.0.jar
 /usr/share/apache-spark/jars/opencsv-2.3.jar
 /usr/share/apache-spark/jars/oro-2.0.8.jar
 /usr/share/apache-spark/jars/paranamer-2.6.jar
@@ -759,31 +766,30 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/slf4j-api-1.7.16.jar
 /usr/share/apache-spark/jars/slf4j-log4j12-1.7.16.jar
 /usr/share/apache-spark/jars/snappy-java-1.1.2.6.jar
-/usr/share/apache-spark/jars/spark-catalyst_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-core_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-graphx_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-launcher_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-mllib-local_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-mllib_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-network-common_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-network-shuffle_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-repl_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-sketch_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-sql_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-streaming_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-tags_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-unsafe_2.11-2.1.0.jar
-/usr/share/apache-spark/jars/spark-yarn_2.11-2.1.0.jar
+/usr/share/apache-spark/jars/spark-catalyst_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-core_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-graphx_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-launcher_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-mllib-local_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-mllib_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-network-common_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-network-shuffle_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-repl_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-sketch_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-sql_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-streaming_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-tags_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-unsafe_2.11-2.1.1.jar
+/usr/share/apache-spark/jars/spark-yarn_2.11-2.1.1.jar
 /usr/share/apache-spark/jars/spire-macros_2.11-0.7.4.jar
 /usr/share/apache-spark/jars/spire_2.11-0.7.4.jar
 /usr/share/apache-spark/jars/stax-api-1.0-2.jar
 /usr/share/apache-spark/jars/stream-2.7.0.jar
 /usr/share/apache-spark/jars/univocity-parsers-2.2.1.jar
 /usr/share/apache-spark/jars/xbean-asm5-shaded-4.4.jar
-/usr/share/apache-spark/jars/xercesImpl-2.9.1.jar
 /usr/share/apache-spark/jars/xmlenc-0.52.jar
 /usr/share/apache-spark/jars/xz-1.0.jar
-/usr/share/apache-spark/jars/zookeeper-3.4.6.jar
+/usr/share/apache-spark/jars/zookeeper-3.4.5.jar
 /usr/share/apache-spark/licenses/LICENSE-AnchorJS.txt
 /usr/share/apache-spark/licenses/LICENSE-DPark.txt
 /usr/share/apache-spark/licenses/LICENSE-Mockito.txt
@@ -994,6 +1000,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/ClientDistributedCacheManager.scala
 /usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/ExecutorRunnable.scala
 /usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy.scala
+/usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/SparkRackResolver.scala
 /usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/YarnAllocator.scala
 /usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/YarnRMClient.scala
 /usr/share/apache-spark/yarn/src/main/scala/org/apache/spark/deploy/yarn/YarnSparkHadoopUtil.scala
@@ -1019,6 +1026,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/ClientDistributedCacheManagerSuite.scala
 /usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/ClientSuite.scala
 /usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/ContainerPlacementStrategySuite.scala
+/usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite.scala
 /usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/YarnAllocatorSuite.scala
 /usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/YarnClusterSuite.scala
 /usr/share/apache-spark/yarn/src/test/scala/org/apache/spark/deploy/yarn/YarnShuffleIntegrationSuite.scala
@@ -1041,7 +1049,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/maven-shared-archive-resources/META-INF/NOTICE
 /usr/share/apache-spark/yarn/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 /usr/share/apache-spark/yarn/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
-/usr/share/apache-spark/yarn/target/original-spark-yarn_2.11-2.1.0.jar
+/usr/share/apache-spark/yarn/target/original-spark-yarn_2.11-2.1.1.jar
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/META-INF/DEPENDENCIES
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/META-INF/LICENSE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/META-INF/NOTICE
@@ -1127,9 +1135,10 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$19.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$20.class
-/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$23.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$21.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$24.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$25.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$26.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$3.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$4.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$5.class
@@ -1162,6 +1171,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createConfArchive$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createConfArchive$3.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createConfArchive$4.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createConfArchive$5.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createContainerLaunchContext$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createContainerLaunchContext$10$$anonfun$apply$20.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$createContainerLaunchContext$10.class
@@ -1200,8 +1210,8 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$monitorApplication$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$monitorApplication$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$monitorApplication$3.class
-/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$org$apache$spark$deploy$yarn$Client$$formatReportDetails$1$$anonfun$21.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$org$apache$spark$deploy$yarn$Client$$formatReportDetails$1$$anonfun$22.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$org$apache$spark$deploy$yarn$Client$$formatReportDetails$1$$anonfun$23.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$org$apache$spark$deploy$yarn$Client$$formatReportDetails$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$populateClasspath$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$$anonfun$populateClasspath$2.class
@@ -1253,6 +1263,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client$.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/Client.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ClientArguments.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ClientDistributedCacheManager$$anonfun$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ClientDistributedCacheManager$$anonfun$addResource$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ClientDistributedCacheManager$$anonfun$updateConfiguration$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ClientDistributedCacheManager$$anonfun$updateConfiguration$2.class
@@ -1283,9 +1294,9 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ExecutorRunnable$$anonfun$prepareEnvironment$5.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ExecutorRunnable$$anonfun$run$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/ExecutorRunnable.class
-/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$1.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$4.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$expectedHostToContainerCount$1$$anonfun$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$expectedHostToContainerCount$1$$anonfun$2.class
-/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$expectedHostToContainerCount$1$$anonfun$3.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$expectedHostToContainerCount$1$$anonfun$7.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$expectedHostToContainerCount$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$localityOfRequestedContainers$1$$anonfun$5.class
@@ -1293,11 +1304,12 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$localityOfRequestedContainers$1$$anonfun$apply$mcVI$sp$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$localityOfRequestedContainers$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$localityOfRequestedContainers$2.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$pendingHostToContainerCount$1$$anonfun$apply$1$$anonfun$3.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$pendingHostToContainerCount$1$$anonfun$apply$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$pendingHostToContainerCount$1.class
-/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$pendingHostToContainerCount$2$$anonfun$apply$1$$anonfun$4.class
-/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$pendingHostToContainerCount$2$$anonfun$apply$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy$$anonfun$pendingHostToContainerCount$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/LocalityPreferredContainerPlacementStrategy.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/SparkRackResolver.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/YarnAllocator$$anonfun$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/YarnAllocator$$anonfun$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/YarnAllocator$$anonfun$3$$anonfun$apply$1.class
@@ -1408,6 +1420,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/CredentialUpdater$$anonfun$2$$anonfun$apply$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/CredentialUpdater$$anonfun$2.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/CredentialUpdater$$anonfun$3.class
+/usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/CredentialUpdater$$anonfun$org$apache$spark$deploy$yarn$security$CredentialUpdater$$updateCredentialsIfRequired$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/CredentialUpdater$$anonfun$start$1.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/CredentialUpdater.class
 /usr/share/apache-spark/yarn/target/scala-2.11/classes/org/apache/spark/deploy/yarn/security/HBaseCredentialProvider$$anonfun$hbaseConf$1.class
@@ -1594,6 +1607,13 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/ContainerPlacementStrategySuite$$anonfun$6$$anonfun$12.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/ContainerPlacementStrategySuite$$anonfun$6.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/ContainerPlacementStrategySuite.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite$$anonfun$1$$anon$1.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite$$anonfun$1.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite$$anonfun$2.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite$$anonfun$3.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite$$anonfun$org$apache$spark$deploy$yarn$LocalityPlacementStrategySuite$$runTest$1$$anonfun$apply$1.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite$$anonfun$org$apache$spark$deploy$yarn$LocalityPlacementStrategySuite$$runTest$1.class
+/usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/LocalityPlacementStrategySuite.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/MockResolver.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/SaveExecutorInfo.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/deploy/yarn/SparkContextTimeoutApp$.class
@@ -1716,7 +1736,7 @@ echo "Spark 2.0.0" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/scheduler/cluster/SimpleExtensionService.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/scheduler/cluster/StubApplicationAttemptId.class
 /usr/share/apache-spark/yarn/target/scala-2.11/test-classes/org/apache/spark/scheduler/cluster/StubApplicationId.class
-/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.0-sources.jar
-/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.0-test-sources.jar
-/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.0-tests.jar
-/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.0.jar
+/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1-sources.jar
+/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1-test-sources.jar
+/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1-tests.jar
+/usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1.jar
