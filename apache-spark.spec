@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.1.1
-Release  : 21
+Release  : 22
 URL      : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source0  : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source1  : spark-script
@@ -34,7 +34,7 @@ bin components for the apache-spark package.
 mkdir -p %{buildroot}
 cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
 mvn package -Pyarn -Phadoop-2.8 -Dhadoop.version=2.8.0 \
--Phive -Phive-thriftserver \
+-Phive -Phive-thriftserver -Pnetlib-lgpl \
 -DskipTests -Dtar -Dmaven.repo.local=%{buildroot}/.m2/repository
 
 %install
@@ -637,6 +637,7 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/RoaringBitmap-0.5.11.jar
 /usr/share/apache-spark/jars/ST4-4.0.4.jar
 /usr/share/apache-spark/jars/activation-1.1.jar
+/usr/share/apache-spark/jars/all-1.1.2.pom
 /usr/share/apache-spark/jars/antlr-2.7.7.jar
 /usr/share/apache-spark/jars/antlr-runtime-3.4.jar
 /usr/share/apache-spark/jars/antlr4-runtime-4.5.3.jar
@@ -744,6 +745,7 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/jetty-sslengine-6.1.26.jar
 /usr/share/apache-spark/jars/jetty-util-6.1.26.jar
 /usr/share/apache-spark/jars/jline-2.12.1.jar
+/usr/share/apache-spark/jars/jniloader-1.1.jar
 /usr/share/apache-spark/jars/joda-time-2.9.3.jar
 /usr/share/apache-spark/jars/jodd-core-3.5.2.jar
 /usr/share/apache-spark/jars/jpam-1.1.jar
@@ -767,6 +769,20 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/metrics-json-3.1.2.jar
 /usr/share/apache-spark/jars/metrics-jvm-3.1.2.jar
 /usr/share/apache-spark/jars/minlog-1.3.0.jar
+/usr/share/apache-spark/jars/native_ref-java-1.1.jar
+/usr/share/apache-spark/jars/native_system-java-1.1.jar
+/usr/share/apache-spark/jars/netlib-native_ref-linux-armhf-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-linux-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-linux-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-osx-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-win-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-win-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-linux-armhf-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-linux-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-linux-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-osx-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-win-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-win-x86_64-1.1-natives.jar
 /usr/share/apache-spark/jars/netty-3.8.0.Final.jar
 /usr/share/apache-spark/jars/netty-all-4.0.42.Final.jar
 /usr/share/apache-spark/jars/nimbus-jose-jwt-3.9.jar
