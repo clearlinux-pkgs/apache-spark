@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.1.1
-Release  : 22
+Release  : 23
 URL      : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source0  : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source1  : spark-script
@@ -60,6 +60,19 @@ do
     chmod +x %{buildroot}/usr/bin/$cmd
 done
 
+# Create openblas symlinks for netlib-java 
+# https://github.com/fommil/netlib-java#linux
+mkdir -p %{buildroot}/usr/lib64/haswell
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so.3
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so.3
+
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so.3
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so.3
+
 echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 
 %files bin
@@ -74,6 +87,14 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 
 %defattr(-,root,root,-)
 %files
+/usr/lib64/haswell/libblas.so
+/usr/lib64/haswell/libblas.so.3
+/usr/lib64/haswell/liblapack.so
+/usr/lib64/haswell/liblapack.so.3
+/usr/lib64/libblas.so
+/usr/lib64/libblas.so.3
+/usr/lib64/liblapack.so
+/usr/lib64/liblapack.so.3
 /usr/share/apache-spark/R/.gitignore
 /usr/share/apache-spark/R/CRAN_RELEASE.md
 /usr/share/apache-spark/R/DOCUMENTATION.md
