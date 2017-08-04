@@ -1,0 +1,30 @@
+From 3aba60711b41684b21cb94fb8a30155bbe8b233a Mon Sep 17 00:00:00 2001
+From: Athenas Jimenez Gonzalez <athenas.jimenez.gonzalez@intel.com>
+Date: Thu, 3 Aug 2017 21:53:27 +0000
+Subject: [PATCH] Statelss
+
+---
+ bin/load-spark-env.sh | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/bin/load-spark-env.sh b/bin/load-spark-env.sh
+index 8a2f709..3ed2540 100644
+--- a/bin/load-spark-env.sh
++++ b/bin/load-spark-env.sh
+@@ -32,7 +32,12 @@ if [ -z "$SPARK_ENV_LOADED" ]; then
+   # Returns the parent of the directory this script lives in.
+   parent_dir="${SPARK_HOME}"
+ 
+-  user_conf_dir="${SPARK_CONF_DIR:-"$parent_dir"/conf}"
++  # Figure out where is conf dir
++  if [[ -d "/etc/spark" && "$(ls -A "/etc/spark")" ]]; then
++      user_conf_dir="/etc/spark"
++  else
++      user_conf_dir="${SPARK_CONF_DIR:-"$parent_dir"/conf}"
++  fi
+ 
+   if [ -f "${user_conf_dir}/spark-env.sh" ]; then
+     # Promote all variable declarations to environment (exported) variables
+-- 
+2.13.4
+

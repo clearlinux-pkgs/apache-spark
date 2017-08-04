@@ -1,9 +1,10 @@
 Name     : apache-spark
 Version  : 2.1.1
-Release  : 24
+Release  : 25
 URL      : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source0  : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source1  : spark-script
+Patch1   : 0001-Stateless.patch
 Patch2   : 0001-Add-javax.ws.rs-in-core-pom.xml.patch
 Summary  : R Frontend for Apache Spark
 Group    : Development/Tools
@@ -29,6 +30,7 @@ bin components for the apache-spark package.
 
 %prep
 %setup -q -n spark-2.1.1
+%patch1 -p1 
 %patch2 -p1 
 
 %build
@@ -47,11 +49,15 @@ find bin/ -iname *.cmd -delete
 rm -rf yarn/target/analysis
 
 # Copy directories
-cp -R R/ bin/ conf/ data/ licenses/ python/ sbin/ yarn/ %{buildroot}/usr/share/apache-spark 
+cp -R R/ bin/ data/ licenses/ python/ sbin/ yarn/ %{buildroot}/usr/share/apache-spark 
 cp assembly/target/scala-2.11/jars/* %{buildroot}/usr/share/apache-spark/jars
 mkdir -p %{buildroot}/usr/share/apache-spark/examples/
 mv examples/target/scala-2.11/jars %{buildroot}/usr/share/apache-spark/examples/
 mv examples/src %{buildroot}/usr/share/apache-spark/examples/
+
+# Create default configuration dir
+mkdir -p %{buildroot}/usr/share/defaults/spark
+cp conf/* %{buildroot}/usr/share/defaults/spark/
 
 # Add helper scripts
 mkdir -p %{buildroot}/usr/bin
@@ -176,13 +182,6 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/bin/spark-sql
 /usr/share/apache-spark/bin/spark-submit
 /usr/share/apache-spark/bin/sparkR
-/usr/share/apache-spark/conf/docker.properties.template
-/usr/share/apache-spark/conf/fairscheduler.xml.template
-/usr/share/apache-spark/conf/log4j.properties.template
-/usr/share/apache-spark/conf/metrics.properties.template
-/usr/share/apache-spark/conf/slaves.template
-/usr/share/apache-spark/conf/spark-defaults.conf.template
-/usr/share/apache-spark/conf/spark-env.sh.template
 /usr/share/apache-spark/data/graphx/followers.txt
 /usr/share/apache-spark/data/graphx/users.txt
 /usr/share/apache-spark/data/mllib/als/sample_movielens_ratings.txt
@@ -1816,3 +1815,10 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1-test-sources.jar
 /usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1-tests.jar
 /usr/share/apache-spark/yarn/target/spark-yarn_2.11-2.1.1.jar
+/usr/share/defaults/spark/docker.properties.template
+/usr/share/defaults/spark/fairscheduler.xml.template
+/usr/share/defaults/spark/log4j.properties.template
+/usr/share/defaults/spark/metrics.properties.template
+/usr/share/defaults/spark/slaves.template
+/usr/share/defaults/spark/spark-defaults.conf.template
+/usr/share/defaults/spark/spark-env.sh.template
