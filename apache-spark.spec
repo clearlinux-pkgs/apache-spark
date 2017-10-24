@@ -663,6 +663,7 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/antlr-runtime-3.4.jar
 /usr/share/apache-spark/jars/antlr4-runtime-4.5.3.jar
 /usr/share/apache-spark/jars/aopalliance-1.0.jar
+/usr/share/apache-spark/jars/aopalliance-repackaged-2.4.0-b34.jar
 /usr/share/apache-spark/jars/apache-log4j-extras-1.2.17.jar
 /usr/share/apache-spark/jars/apacheds-i18n-2.0.0-M15.jar
 /usr/share/apache-spark/jars/apacheds-kerberos-codec-2.0.0-M15.jar
@@ -734,6 +735,9 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/hive-exec-1.2.1.spark2.jar
 /usr/share/apache-spark/jars/hive-jdbc-1.2.1.spark2.jar
 /usr/share/apache-spark/jars/hive-metastore-1.2.1.spark2.jar
+/usr/share/apache-spark/jars/hk2-api-2.4.0-b34.jar
+/usr/share/apache-spark/jars/hk2-locator-2.4.0-b34.jar
+/usr/share/apache-spark/jars/hk2-utils-2.4.0-b34.jar
 /usr/share/apache-spark/jars/htrace-core4-4.0.1-incubating.jar
 /usr/share/apache-spark/jars/httpclient-4.5.2.jar
 /usr/share/apache-spark/jars/httpcore-4.4.4.jar
@@ -748,7 +752,10 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/jackson-module-scala_2.11-2.6.5.jar
 /usr/share/apache-spark/jars/jackson-xc-1.9.13.jar
 /usr/share/apache-spark/jars/janino-3.0.0.jar
+/usr/share/apache-spark/jars/javassist-3.18.1-GA.jar
+/usr/share/apache-spark/jars/javax.annotation-api-1.2.jar
 /usr/share/apache-spark/jars/javax.inject-1.jar
+/usr/share/apache-spark/jars/javax.inject-2.4.0-b34.jar
 /usr/share/apache-spark/jars/javax.servlet-api-3.1.0.jar
 /usr/share/apache-spark/jars/javax.ws.rs-api-2.0.1.jar
 /usr/share/apache-spark/jars/javolution-5.5.1.jar
@@ -760,6 +767,8 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/jersey-common-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-container-servlet-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-container-servlet-core-2.22.2.jar
+/usr/share/apache-spark/jars/jersey-guava-2.22.2.jar
+/usr/share/apache-spark/jars/jersey-media-jaxb-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-server-2.22.2.jar
 /usr/share/apache-spark/jars/jets3t-0.7.1.jar
 /usr/share/apache-spark/jars/jetty-6.1.26.jar
@@ -812,6 +821,7 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/okio-1.4.0.jar
 /usr/share/apache-spark/jars/opencsv-2.3.jar
 /usr/share/apache-spark/jars/oro-2.0.8.jar
+/usr/share/apache-spark/jars/osgi-resource-locator-1.0.1.jar
 /usr/share/apache-spark/jars/paranamer-2.3.jar
 /usr/share/apache-spark/jars/parquet-column-1.8.1.jar
 /usr/share/apache-spark/jars/parquet-common-1.8.1.jar
@@ -861,6 +871,7 @@ echo "Spark 2.1.1" > %{buildroot}/usr/share/apache-spark/RELEASE
 /usr/share/apache-spark/jars/stringtemplate-3.2.1.jar
 /usr/share/apache-spark/jars/super-csv-2.2.0.jar
 /usr/share/apache-spark/jars/univocity-parsers-2.2.1.jar
+/usr/share/apache-spark/jars/validation-api-1.1.0.Final.jar
 /usr/share/apache-spark/jars/xbean-asm5-shaded-4.4.jar
 /usr/share/apache-spark/jars/xmlenc-0.52.jar
 /usr/share/apache-spark/jars/xz-1.0.jar
