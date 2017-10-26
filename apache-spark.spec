@@ -1,10 +1,10 @@
 Name     : apache-spark
 Version  : 2.1.1
-Release  : 26
+Release  : 27
 URL      : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source0  : https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1.tgz
 Source1  : spark-script
-Patch1   : 0001-Stateless.patch
+Patch1   : 0001-Stateless-v2.patch
 Patch2   : 0001-Add-javax.ws.rs-in-core-pom.xml.patch
 Summary  : R Frontend for Apache Spark
 Group    : Development/Tools
