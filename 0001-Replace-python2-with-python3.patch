@@ -1,0 +1,25 @@
+From b7947bb18f40f2905f4c0ec16dcc64e8c9dab52a Mon Sep 17 00:00:00 2001
+From: Athenas Jimenez Gonzalez <athenas.jimenez.gonzalez@intel.com>
+Date: Wed, 24 Jan 2018 17:41:16 +0000
+Subject: [PATCH] Replace python2 with python3
+
+---
+ dev/make-distribution.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dev/make-distribution.sh b/dev/make-distribution.sh
+index 48a8244..911c778 100755
+--- a/dev/make-distribution.sh
++++ b/dev/make-distribution.sh
+@@ -208,7 +208,7 @@ if [ "$MAKE_PIP" == "true" ]; then
+   pushd "$SPARK_HOME/python" > /dev/null
+   # Delete the egg info file if it exists, this can cache older setup files.
+   rm -rf pyspark.egg-info || echo "No existing egg info file, skipping deletion"
+-  python setup.py sdist
++  python3 setup.py sdist
+   popd > /dev/null
+ else
+   echo "Skipping building python distribution package"
+-- 
+2.16.1
+
