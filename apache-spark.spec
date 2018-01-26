@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.2.1
-Release  : 31
+Release  : 32
 URL      : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source0  : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source1  : spark-script
@@ -52,10 +52,12 @@ bin components for the apache-spark package.
 rm build/mvn
 
 %build
-
+rm -rf %{buildroot}
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+
 mkdir -p %{buildroot}
 cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
+
 ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark \
 --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos \
 -Pyarn -Dmaven.repo.local=%{buildroot}/.m2/repository --offline -Pnetlib-lgpl
