@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.2.1
-Release  : 30
+Release  : 31
 URL      : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source0  : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source1  : spark-script
@@ -69,6 +69,10 @@ tar -xf spark-2.2.1-bin-custom-spark.tgz \
 
 # Remove cmd files
 find %{buildroot}/usr/share/apache-spark/bin/ -iname *.cmd -delete
+
+# Create default configuration dir
+mkdir -p %{buildroot}/usr/share/defaults/spark
+cp conf/* %{buildroot}/usr/share/defaults/spark/
 
 # Clean up RELEASE file.
 sed -i 's/-Dmaven.repo.local=\(.*\)\/.m2/-Dmaven.repo.local=BUILDROOT\/.m2/' %{buildroot}/usr/share/apache-spark/RELEASE
@@ -1328,3 +1332,10 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/apache-spark/sbin/stop-slaves.sh
 /usr/share/apache-spark/sbin/stop-thriftserver.sh
 /usr/share/apache-spark/yarn/spark-2.2.1-yarn-shuffle.jar
+/usr/share/defaults/spark/docker.properties.template
+/usr/share/defaults/spark/fairscheduler.xml.template
+/usr/share/defaults/spark/log4j.properties.template
+/usr/share/defaults/spark/metrics.properties.template
+/usr/share/defaults/spark/slaves.template
+/usr/share/defaults/spark/spark-defaults.conf.template
+/usr/share/defaults/spark/spark-env.sh.template
