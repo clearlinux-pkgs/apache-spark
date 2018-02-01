@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.2.1
-Release  : 33
+Release  : 34
 URL      : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source0  : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source1  : spark-script
@@ -8,6 +8,7 @@ Patch1   : 0001-Stateless-v2.patch
 Patch2   : 0001-Add-javax.ws.rs-in-core-pom.xml.patch
 Patch3   : 0001-Disable-R-manual-and-tests.patch
 Patch4   : 0001-Replace-python2-with-python3.patch
+Patch5   : 0001-Disable-Zinc-installation.patch
 Summary  : Apache Spark
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSD-4-Clause-UC CDDL-1.0 ECL-2.0 HPND MIT PostgreSQL Python-2.0
@@ -47,21 +48,17 @@ bin components for the apache-spark package.
 # R manual and tests requires LaTeX, so they would be disabled for now. 
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 # Remove the mvn that comes with Spark. We'll use our own mvn.
 rm build/mvn
 
 %build
-# Clean up zinc directory. 
-rm -rf $HOME/.zinc
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 
 # Setup local maven repository.
 mkdir -p %{buildroot}
 cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
-
-# Clean project before starting.
-mvn -Dmaven.repo.local=%{buildroot}/.m2/repository --offline clean
 
 ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark \
 --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos \
