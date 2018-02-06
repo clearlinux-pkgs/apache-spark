@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.2.1
-Release  : 35
+Release  : 36
 URL      : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source0  : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source1  : spark-script
@@ -54,6 +54,9 @@ bin components for the apache-spark package.
 rm build/mvn
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 
 # Setup local maven repository.
@@ -322,267 +325,136 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/streaming/JavaSqlNetworkWordCount.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/streaming/JavaStatefulNetworkWordCount.java
 /usr/share/apache-spark/examples/src/main/python/als.py
-/usr/share/apache-spark/examples/src/main/python/als.pyc
 /usr/share/apache-spark/examples/src/main/python/avro_inputformat.py
-/usr/share/apache-spark/examples/src/main/python/avro_inputformat.pyc
 /usr/share/apache-spark/examples/src/main/python/kmeans.py
-/usr/share/apache-spark/examples/src/main/python/kmeans.pyc
 /usr/share/apache-spark/examples/src/main/python/logistic_regression.py
-/usr/share/apache-spark/examples/src/main/python/logistic_regression.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/aft_survival_regression.py
-/usr/share/apache-spark/examples/src/main/python/ml/aft_survival_regression.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/als_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/als_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/binarizer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/binarizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/bisecting_k_means_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/bisecting_k_means_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/bucketed_random_projection_lsh_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/bucketed_random_projection_lsh_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/bucketizer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/bucketizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/chi_square_test_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/chi_square_test_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/chisq_selector_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/chisq_selector_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/correlation_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/correlation_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/count_vectorizer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/count_vectorizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/cross_validator.py
-/usr/share/apache-spark/examples/src/main/python/ml/cross_validator.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/dataframe_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/dataframe_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/dct_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/dct_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/decision_tree_classification_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/decision_tree_classification_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/decision_tree_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/decision_tree_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/elementwise_product_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/elementwise_product_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/estimator_transformer_param_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/estimator_transformer_param_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/fpgrowth_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/fpgrowth_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/gaussian_mixture_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/gaussian_mixture_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/generalized_linear_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/generalized_linear_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/gradient_boosted_tree_classifier_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/gradient_boosted_tree_classifier_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/gradient_boosted_tree_regressor_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/gradient_boosted_tree_regressor_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/imputer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/imputer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/index_to_string_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/index_to_string_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/isotonic_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/isotonic_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/kmeans_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/kmeans_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/lda_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/lda_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/linear_regression_with_elastic_net.py
-/usr/share/apache-spark/examples/src/main/python/ml/linear_regression_with_elastic_net.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/linearsvc.py
-/usr/share/apache-spark/examples/src/main/python/ml/linearsvc.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/logistic_regression_summary_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/logistic_regression_summary_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/logistic_regression_with_elastic_net.py
-/usr/share/apache-spark/examples/src/main/python/ml/logistic_regression_with_elastic_net.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/max_abs_scaler_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/max_abs_scaler_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/min_hash_lsh_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/min_hash_lsh_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/min_max_scaler_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/min_max_scaler_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/multiclass_logistic_regression_with_elastic_net.py
-/usr/share/apache-spark/examples/src/main/python/ml/multiclass_logistic_regression_with_elastic_net.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/multilayer_perceptron_classification.py
-/usr/share/apache-spark/examples/src/main/python/ml/multilayer_perceptron_classification.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/n_gram_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/n_gram_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/naive_bayes_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/naive_bayes_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/normalizer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/normalizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/one_vs_rest_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/one_vs_rest_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/onehot_encoder_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/onehot_encoder_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/pca_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/pca_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/pipeline_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/pipeline_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/polynomial_expansion_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/polynomial_expansion_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/quantile_discretizer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/quantile_discretizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/random_forest_classifier_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/random_forest_classifier_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/random_forest_regressor_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/random_forest_regressor_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/rformula_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/rformula_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/sql_transformer.py
-/usr/share/apache-spark/examples/src/main/python/ml/sql_transformer.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/standard_scaler_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/standard_scaler_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/stopwords_remover_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/stopwords_remover_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/string_indexer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/string_indexer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/tf_idf_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/tf_idf_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/tokenizer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/tokenizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/train_validation_split.py
-/usr/share/apache-spark/examples/src/main/python/ml/train_validation_split.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/vector_assembler_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/vector_assembler_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/vector_indexer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/vector_indexer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/vector_slicer_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/vector_slicer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/ml/word2vec_example.py
-/usr/share/apache-spark/examples/src/main/python/ml/word2vec_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/binary_classification_metrics_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/binary_classification_metrics_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/bisecting_k_means_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/bisecting_k_means_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/correlations.py
-/usr/share/apache-spark/examples/src/main/python/mllib/correlations.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/correlations_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/correlations_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/decision_tree_classification_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/decision_tree_classification_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/decision_tree_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/decision_tree_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/elementwise_product_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/elementwise_product_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/fpgrowth_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/fpgrowth_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/gaussian_mixture_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/gaussian_mixture_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/gaussian_mixture_model.py
-/usr/share/apache-spark/examples/src/main/python/mllib/gaussian_mixture_model.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/gradient_boosting_classification_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/gradient_boosting_classification_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/gradient_boosting_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/gradient_boosting_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/hypothesis_testing_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/hypothesis_testing_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/hypothesis_testing_kolmogorov_smirnov_test_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/hypothesis_testing_kolmogorov_smirnov_test_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/isotonic_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/isotonic_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/k_means_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/k_means_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/kernel_density_estimation_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/kernel_density_estimation_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/kmeans.py
-/usr/share/apache-spark/examples/src/main/python/mllib/kmeans.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/latent_dirichlet_allocation_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/latent_dirichlet_allocation_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/linear_regression_with_sgd_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/linear_regression_with_sgd_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/logistic_regression.py
-/usr/share/apache-spark/examples/src/main/python/mllib/logistic_regression.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/logistic_regression_with_lbfgs_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/logistic_regression_with_lbfgs_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/multi_class_metrics_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/multi_class_metrics_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/multi_label_metrics_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/multi_label_metrics_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/naive_bayes_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/naive_bayes_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/normalizer_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/normalizer_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/pca_rowmatrix_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/pca_rowmatrix_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/power_iteration_clustering_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/power_iteration_clustering_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/random_forest_classification_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/random_forest_classification_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/random_forest_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/random_forest_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/random_rdd_generation.py
-/usr/share/apache-spark/examples/src/main/python/mllib/random_rdd_generation.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/ranking_metrics_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/ranking_metrics_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/recommendation_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/recommendation_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/regression_metrics_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/regression_metrics_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/sampled_rdds.py
-/usr/share/apache-spark/examples/src/main/python/mllib/sampled_rdds.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/standard_scaler_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/standard_scaler_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/stratified_sampling_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/stratified_sampling_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/streaming_k_means_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/streaming_k_means_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/streaming_linear_regression_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/streaming_linear_regression_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/summary_statistics_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/summary_statistics_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/svd_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/svd_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/svm_with_sgd_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/svm_with_sgd_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/tf_idf_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/tf_idf_example.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/word2vec.py
-/usr/share/apache-spark/examples/src/main/python/mllib/word2vec.pyc
 /usr/share/apache-spark/examples/src/main/python/mllib/word2vec_example.py
-/usr/share/apache-spark/examples/src/main/python/mllib/word2vec_example.pyc
 /usr/share/apache-spark/examples/src/main/python/pagerank.py
-/usr/share/apache-spark/examples/src/main/python/pagerank.pyc
 /usr/share/apache-spark/examples/src/main/python/parquet_inputformat.py
-/usr/share/apache-spark/examples/src/main/python/parquet_inputformat.pyc
 /usr/share/apache-spark/examples/src/main/python/pi.py
-/usr/share/apache-spark/examples/src/main/python/pi.pyc
 /usr/share/apache-spark/examples/src/main/python/sort.py
-/usr/share/apache-spark/examples/src/main/python/sort.pyc
 /usr/share/apache-spark/examples/src/main/python/sql/basic.py
-/usr/share/apache-spark/examples/src/main/python/sql/basic.pyc
 /usr/share/apache-spark/examples/src/main/python/sql/datasource.py
-/usr/share/apache-spark/examples/src/main/python/sql/datasource.pyc
 /usr/share/apache-spark/examples/src/main/python/sql/hive.py
-/usr/share/apache-spark/examples/src/main/python/sql/hive.pyc
 /usr/share/apache-spark/examples/src/main/python/sql/streaming/structured_kafka_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/sql/streaming/structured_kafka_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/sql/streaming/structured_network_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/sql/streaming/structured_network_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/sql/streaming/structured_network_wordcount_windowed.py
-/usr/share/apache-spark/examples/src/main/python/sql/streaming/structured_network_wordcount_windowed.pyc
 /usr/share/apache-spark/examples/src/main/python/status_api_demo.py
-/usr/share/apache-spark/examples/src/main/python/status_api_demo.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/direct_kafka_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/direct_kafka_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/flume_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/flume_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/hdfs_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/hdfs_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/kafka_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/kafka_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/network_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/network_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/network_wordjoinsentiments.py
-/usr/share/apache-spark/examples/src/main/python/streaming/network_wordjoinsentiments.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/queue_stream.py
-/usr/share/apache-spark/examples/src/main/python/streaming/queue_stream.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/recoverable_network_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/recoverable_network_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/sql_network_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/sql_network_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/streaming/stateful_network_wordcount.py
-/usr/share/apache-spark/examples/src/main/python/streaming/stateful_network_wordcount.pyc
 /usr/share/apache-spark/examples/src/main/python/transitive_closure.py
-/usr/share/apache-spark/examples/src/main/python/transitive_closure.pyc
 /usr/share/apache-spark/examples/src/main/python/wordcount.py
-/usr/share/apache-spark/examples/src/main/python/wordcount.pyc
 /usr/share/apache-spark/examples/src/main/r/RSparkSQLExample.R
 /usr/share/apache-spark/examples/src/main/r/data-manipulation.R
 /usr/share/apache-spark/examples/src/main/r/dataframe.R
@@ -1069,9 +941,7 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/apache-spark/python/docs/_static/pyspark.js
 /usr/share/apache-spark/python/docs/_templates/layout.html
 /usr/share/apache-spark/python/docs/conf.py
-/usr/share/apache-spark/python/docs/conf.pyc
 /usr/share/apache-spark/python/docs/epytext.py
-/usr/share/apache-spark/python/docs/epytext.pyc
 /usr/share/apache-spark/python/docs/index.rst
 /usr/share/apache-spark/python/docs/make.bat
 /usr/share/apache-spark/python/docs/make2.bat
@@ -1090,199 +960,103 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/apache-spark/python/pyspark.egg-info/requires.txt
 /usr/share/apache-spark/python/pyspark.egg-info/top_level.txt
 /usr/share/apache-spark/python/pyspark/__init__.py
-/usr/share/apache-spark/python/pyspark/__init__.pyc
 /usr/share/apache-spark/python/pyspark/accumulators.py
-/usr/share/apache-spark/python/pyspark/accumulators.pyc
 /usr/share/apache-spark/python/pyspark/broadcast.py
-/usr/share/apache-spark/python/pyspark/broadcast.pyc
 /usr/share/apache-spark/python/pyspark/cloudpickle.py
-/usr/share/apache-spark/python/pyspark/cloudpickle.pyc
 /usr/share/apache-spark/python/pyspark/conf.py
-/usr/share/apache-spark/python/pyspark/conf.pyc
 /usr/share/apache-spark/python/pyspark/context.py
-/usr/share/apache-spark/python/pyspark/context.pyc
 /usr/share/apache-spark/python/pyspark/daemon.py
-/usr/share/apache-spark/python/pyspark/daemon.pyc
 /usr/share/apache-spark/python/pyspark/files.py
-/usr/share/apache-spark/python/pyspark/files.pyc
 /usr/share/apache-spark/python/pyspark/find_spark_home.py
-/usr/share/apache-spark/python/pyspark/find_spark_home.pyc
 /usr/share/apache-spark/python/pyspark/heapq3.py
-/usr/share/apache-spark/python/pyspark/heapq3.pyc
 /usr/share/apache-spark/python/pyspark/java_gateway.py
-/usr/share/apache-spark/python/pyspark/java_gateway.pyc
 /usr/share/apache-spark/python/pyspark/join.py
-/usr/share/apache-spark/python/pyspark/join.pyc
 /usr/share/apache-spark/python/pyspark/ml/__init__.py
-/usr/share/apache-spark/python/pyspark/ml/__init__.pyc
 /usr/share/apache-spark/python/pyspark/ml/base.py
-/usr/share/apache-spark/python/pyspark/ml/base.pyc
 /usr/share/apache-spark/python/pyspark/ml/classification.py
-/usr/share/apache-spark/python/pyspark/ml/classification.pyc
 /usr/share/apache-spark/python/pyspark/ml/clustering.py
-/usr/share/apache-spark/python/pyspark/ml/clustering.pyc
 /usr/share/apache-spark/python/pyspark/ml/common.py
-/usr/share/apache-spark/python/pyspark/ml/common.pyc
 /usr/share/apache-spark/python/pyspark/ml/evaluation.py
-/usr/share/apache-spark/python/pyspark/ml/evaluation.pyc
 /usr/share/apache-spark/python/pyspark/ml/feature.py
-/usr/share/apache-spark/python/pyspark/ml/feature.pyc
 /usr/share/apache-spark/python/pyspark/ml/fpm.py
-/usr/share/apache-spark/python/pyspark/ml/fpm.pyc
 /usr/share/apache-spark/python/pyspark/ml/linalg/__init__.py
-/usr/share/apache-spark/python/pyspark/ml/linalg/__init__.pyc
 /usr/share/apache-spark/python/pyspark/ml/param/__init__.py
-/usr/share/apache-spark/python/pyspark/ml/param/__init__.pyc
 /usr/share/apache-spark/python/pyspark/ml/param/_shared_params_code_gen.py
-/usr/share/apache-spark/python/pyspark/ml/param/_shared_params_code_gen.pyc
 /usr/share/apache-spark/python/pyspark/ml/param/shared.py
-/usr/share/apache-spark/python/pyspark/ml/param/shared.pyc
 /usr/share/apache-spark/python/pyspark/ml/pipeline.py
-/usr/share/apache-spark/python/pyspark/ml/pipeline.pyc
 /usr/share/apache-spark/python/pyspark/ml/recommendation.py
-/usr/share/apache-spark/python/pyspark/ml/recommendation.pyc
 /usr/share/apache-spark/python/pyspark/ml/regression.py
-/usr/share/apache-spark/python/pyspark/ml/regression.pyc
 /usr/share/apache-spark/python/pyspark/ml/stat.py
-/usr/share/apache-spark/python/pyspark/ml/stat.pyc
 /usr/share/apache-spark/python/pyspark/ml/tests.py
-/usr/share/apache-spark/python/pyspark/ml/tests.pyc
 /usr/share/apache-spark/python/pyspark/ml/tuning.py
-/usr/share/apache-spark/python/pyspark/ml/tuning.pyc
 /usr/share/apache-spark/python/pyspark/ml/util.py
-/usr/share/apache-spark/python/pyspark/ml/util.pyc
 /usr/share/apache-spark/python/pyspark/ml/wrapper.py
-/usr/share/apache-spark/python/pyspark/ml/wrapper.pyc
 /usr/share/apache-spark/python/pyspark/mllib/__init__.py
-/usr/share/apache-spark/python/pyspark/mllib/__init__.pyc
 /usr/share/apache-spark/python/pyspark/mllib/classification.py
-/usr/share/apache-spark/python/pyspark/mllib/classification.pyc
 /usr/share/apache-spark/python/pyspark/mllib/clustering.py
-/usr/share/apache-spark/python/pyspark/mllib/clustering.pyc
 /usr/share/apache-spark/python/pyspark/mllib/common.py
-/usr/share/apache-spark/python/pyspark/mllib/common.pyc
 /usr/share/apache-spark/python/pyspark/mllib/evaluation.py
-/usr/share/apache-spark/python/pyspark/mllib/evaluation.pyc
 /usr/share/apache-spark/python/pyspark/mllib/feature.py
-/usr/share/apache-spark/python/pyspark/mllib/feature.pyc
 /usr/share/apache-spark/python/pyspark/mllib/fpm.py
-/usr/share/apache-spark/python/pyspark/mllib/fpm.pyc
 /usr/share/apache-spark/python/pyspark/mllib/linalg/__init__.py
-/usr/share/apache-spark/python/pyspark/mllib/linalg/__init__.pyc
 /usr/share/apache-spark/python/pyspark/mllib/linalg/distributed.py
-/usr/share/apache-spark/python/pyspark/mllib/linalg/distributed.pyc
 /usr/share/apache-spark/python/pyspark/mllib/random.py
-/usr/share/apache-spark/python/pyspark/mllib/random.pyc
 /usr/share/apache-spark/python/pyspark/mllib/recommendation.py
-/usr/share/apache-spark/python/pyspark/mllib/recommendation.pyc
 /usr/share/apache-spark/python/pyspark/mllib/regression.py
-/usr/share/apache-spark/python/pyspark/mllib/regression.pyc
 /usr/share/apache-spark/python/pyspark/mllib/stat/KernelDensity.py
-/usr/share/apache-spark/python/pyspark/mllib/stat/KernelDensity.pyc
 /usr/share/apache-spark/python/pyspark/mllib/stat/__init__.py
-/usr/share/apache-spark/python/pyspark/mllib/stat/__init__.pyc
 /usr/share/apache-spark/python/pyspark/mllib/stat/_statistics.py
-/usr/share/apache-spark/python/pyspark/mllib/stat/_statistics.pyc
 /usr/share/apache-spark/python/pyspark/mllib/stat/distribution.py
-/usr/share/apache-spark/python/pyspark/mllib/stat/distribution.pyc
 /usr/share/apache-spark/python/pyspark/mllib/stat/test.py
-/usr/share/apache-spark/python/pyspark/mllib/stat/test.pyc
 /usr/share/apache-spark/python/pyspark/mllib/tests.py
-/usr/share/apache-spark/python/pyspark/mllib/tests.pyc
 /usr/share/apache-spark/python/pyspark/mllib/tree.py
-/usr/share/apache-spark/python/pyspark/mllib/tree.pyc
 /usr/share/apache-spark/python/pyspark/mllib/util.py
-/usr/share/apache-spark/python/pyspark/mllib/util.pyc
 /usr/share/apache-spark/python/pyspark/profiler.py
-/usr/share/apache-spark/python/pyspark/profiler.pyc
 /usr/share/apache-spark/python/pyspark/python/pyspark/shell.py
-/usr/share/apache-spark/python/pyspark/python/pyspark/shell.pyc
 /usr/share/apache-spark/python/pyspark/rdd.py
-/usr/share/apache-spark/python/pyspark/rdd.pyc
 /usr/share/apache-spark/python/pyspark/rddsampler.py
-/usr/share/apache-spark/python/pyspark/rddsampler.pyc
 /usr/share/apache-spark/python/pyspark/resultiterable.py
-/usr/share/apache-spark/python/pyspark/resultiterable.pyc
 /usr/share/apache-spark/python/pyspark/serializers.py
-/usr/share/apache-spark/python/pyspark/serializers.pyc
 /usr/share/apache-spark/python/pyspark/shell.py
-/usr/share/apache-spark/python/pyspark/shell.pyc
 /usr/share/apache-spark/python/pyspark/shuffle.py
-/usr/share/apache-spark/python/pyspark/shuffle.pyc
 /usr/share/apache-spark/python/pyspark/sql/__init__.py
-/usr/share/apache-spark/python/pyspark/sql/__init__.pyc
 /usr/share/apache-spark/python/pyspark/sql/catalog.py
-/usr/share/apache-spark/python/pyspark/sql/catalog.pyc
 /usr/share/apache-spark/python/pyspark/sql/column.py
-/usr/share/apache-spark/python/pyspark/sql/column.pyc
 /usr/share/apache-spark/python/pyspark/sql/conf.py
-/usr/share/apache-spark/python/pyspark/sql/conf.pyc
 /usr/share/apache-spark/python/pyspark/sql/context.py
-/usr/share/apache-spark/python/pyspark/sql/context.pyc
 /usr/share/apache-spark/python/pyspark/sql/dataframe.py
-/usr/share/apache-spark/python/pyspark/sql/dataframe.pyc
 /usr/share/apache-spark/python/pyspark/sql/functions.py
-/usr/share/apache-spark/python/pyspark/sql/functions.pyc
 /usr/share/apache-spark/python/pyspark/sql/group.py
-/usr/share/apache-spark/python/pyspark/sql/group.pyc
 /usr/share/apache-spark/python/pyspark/sql/readwriter.py
-/usr/share/apache-spark/python/pyspark/sql/readwriter.pyc
 /usr/share/apache-spark/python/pyspark/sql/session.py
-/usr/share/apache-spark/python/pyspark/sql/session.pyc
 /usr/share/apache-spark/python/pyspark/sql/streaming.py
-/usr/share/apache-spark/python/pyspark/sql/streaming.pyc
 /usr/share/apache-spark/python/pyspark/sql/tests.py
-/usr/share/apache-spark/python/pyspark/sql/tests.pyc
 /usr/share/apache-spark/python/pyspark/sql/types.py
-/usr/share/apache-spark/python/pyspark/sql/types.pyc
 /usr/share/apache-spark/python/pyspark/sql/utils.py
-/usr/share/apache-spark/python/pyspark/sql/utils.pyc
 /usr/share/apache-spark/python/pyspark/sql/window.py
-/usr/share/apache-spark/python/pyspark/sql/window.pyc
 /usr/share/apache-spark/python/pyspark/statcounter.py
-/usr/share/apache-spark/python/pyspark/statcounter.pyc
 /usr/share/apache-spark/python/pyspark/status.py
-/usr/share/apache-spark/python/pyspark/status.pyc
 /usr/share/apache-spark/python/pyspark/storagelevel.py
-/usr/share/apache-spark/python/pyspark/storagelevel.pyc
 /usr/share/apache-spark/python/pyspark/streaming/__init__.py
-/usr/share/apache-spark/python/pyspark/streaming/__init__.pyc
 /usr/share/apache-spark/python/pyspark/streaming/context.py
-/usr/share/apache-spark/python/pyspark/streaming/context.pyc
 /usr/share/apache-spark/python/pyspark/streaming/dstream.py
-/usr/share/apache-spark/python/pyspark/streaming/dstream.pyc
 /usr/share/apache-spark/python/pyspark/streaming/flume.py
-/usr/share/apache-spark/python/pyspark/streaming/flume.pyc
 /usr/share/apache-spark/python/pyspark/streaming/kafka.py
-/usr/share/apache-spark/python/pyspark/streaming/kafka.pyc
 /usr/share/apache-spark/python/pyspark/streaming/kinesis.py
-/usr/share/apache-spark/python/pyspark/streaming/kinesis.pyc
 /usr/share/apache-spark/python/pyspark/streaming/listener.py
-/usr/share/apache-spark/python/pyspark/streaming/listener.pyc
 /usr/share/apache-spark/python/pyspark/streaming/tests.py
-/usr/share/apache-spark/python/pyspark/streaming/tests.pyc
 /usr/share/apache-spark/python/pyspark/streaming/util.py
-/usr/share/apache-spark/python/pyspark/streaming/util.pyc
 /usr/share/apache-spark/python/pyspark/taskcontext.py
-/usr/share/apache-spark/python/pyspark/taskcontext.pyc
 /usr/share/apache-spark/python/pyspark/tests.py
-/usr/share/apache-spark/python/pyspark/tests.pyc
 /usr/share/apache-spark/python/pyspark/traceback_utils.py
-/usr/share/apache-spark/python/pyspark/traceback_utils.pyc
 /usr/share/apache-spark/python/pyspark/util.py
-/usr/share/apache-spark/python/pyspark/util.pyc
 /usr/share/apache-spark/python/pyspark/version.py
-/usr/share/apache-spark/python/pyspark/version.pyc
 /usr/share/apache-spark/python/pyspark/worker.py
-/usr/share/apache-spark/python/pyspark/worker.pyc
 /usr/share/apache-spark/python/run-tests
 /usr/share/apache-spark/python/run-tests.py
-/usr/share/apache-spark/python/run-tests.pyc
 /usr/share/apache-spark/python/setup.cfg
 /usr/share/apache-spark/python/setup.py
-/usr/share/apache-spark/python/setup.pyc
 /usr/share/apache-spark/python/test_support/SimpleHTTPServer.py
-/usr/share/apache-spark/python/test_support/SimpleHTTPServer.pyc
 /usr/share/apache-spark/python/test_support/hello/hello.txt
 /usr/share/apache-spark/python/test_support/hello/sub_hello/sub_hello.txt
 /usr/share/apache-spark/python/test_support/sql/ages.csv
@@ -1312,7 +1086,6 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/apache-spark/python/test_support/sql/text-test.txt
 /usr/share/apache-spark/python/test_support/userlib-0.1.zip
 /usr/share/apache-spark/python/test_support/userlibrary.py
-/usr/share/apache-spark/python/test_support/userlibrary.pyc
 /usr/share/apache-spark/sbin/slaves.sh
 /usr/share/apache-spark/sbin/spark-config.sh
 /usr/share/apache-spark/sbin/spark-daemon.sh
@@ -1343,3 +1116,233 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/defaults/spark/slaves.template
 /usr/share/defaults/spark/spark-defaults.conf.template
 /usr/share/defaults/spark/spark-env.sh.template
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/als.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/avro_inputformat.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/kmeans.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/logistic_regression.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/pagerank.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/parquet_inputformat.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/pi.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/sort.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/status_api_demo.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/transitive_closure.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/__pycache__/wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/aft_survival_regression.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/als_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/binarizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/bisecting_k_means_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/bucketed_random_projection_lsh_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/bucketizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/chi_square_test_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/chisq_selector_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/correlation_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/count_vectorizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/cross_validator.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/dataframe_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/dct_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/decision_tree_classification_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/decision_tree_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/elementwise_product_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/estimator_transformer_param_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/fpgrowth_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/gaussian_mixture_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/generalized_linear_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/gradient_boosted_tree_classifier_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/gradient_boosted_tree_regressor_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/imputer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/index_to_string_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/isotonic_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/kmeans_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/lda_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/linear_regression_with_elastic_net.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/linearsvc.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/logistic_regression_summary_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/logistic_regression_with_elastic_net.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/max_abs_scaler_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/min_hash_lsh_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/min_max_scaler_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/multiclass_logistic_regression_with_elastic_net.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/multilayer_perceptron_classification.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/n_gram_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/naive_bayes_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/normalizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/one_vs_rest_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/onehot_encoder_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/pca_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/pipeline_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/polynomial_expansion_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/quantile_discretizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/random_forest_classifier_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/random_forest_regressor_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/rformula_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/sql_transformer.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/standard_scaler_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/stopwords_remover_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/string_indexer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/tf_idf_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/tokenizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/train_validation_split.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/vector_assembler_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/vector_indexer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/vector_slicer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/ml/__pycache__/word2vec_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/binary_classification_metrics_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/bisecting_k_means_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/correlations.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/correlations_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/decision_tree_classification_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/decision_tree_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/elementwise_product_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/fpgrowth_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/gaussian_mixture_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/gaussian_mixture_model.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/gradient_boosting_classification_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/gradient_boosting_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/hypothesis_testing_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/hypothesis_testing_kolmogorov_smirnov_test_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/isotonic_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/k_means_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/kernel_density_estimation_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/kmeans.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/latent_dirichlet_allocation_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/linear_regression_with_sgd_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/logistic_regression.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/logistic_regression_with_lbfgs_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/multi_class_metrics_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/multi_label_metrics_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/naive_bayes_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/normalizer_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/pca_rowmatrix_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/power_iteration_clustering_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/random_forest_classification_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/random_forest_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/random_rdd_generation.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/ranking_metrics_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/recommendation_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/regression_metrics_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/sampled_rdds.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/standard_scaler_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/stratified_sampling_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/streaming_k_means_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/streaming_linear_regression_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/summary_statistics_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/svd_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/svm_with_sgd_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/tf_idf_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/word2vec.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/mllib/__pycache__/word2vec_example.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/sql/__pycache__/basic.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/sql/__pycache__/datasource.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/sql/__pycache__/hive.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/sql/streaming/__pycache__/structured_kafka_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/sql/streaming/__pycache__/structured_network_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/sql/streaming/__pycache__/structured_network_wordcount_windowed.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/direct_kafka_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/flume_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/hdfs_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/kafka_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/network_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/network_wordjoinsentiments.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/queue_stream.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/recoverable_network_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/sql_network_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/examples/src/main/python/streaming/__pycache__/stateful_network_wordcount.cpython-36.pyc
+   /usr/share/apache-spark/python/__pycache__/run-tests.cpython-36.pyc
+   /usr/share/apache-spark/python/__pycache__/setup.cpython-36.pyc
+   /usr/share/apache-spark/python/docs/__pycache__/conf.cpython-36.pyc
+   /usr/share/apache-spark/python/docs/__pycache__/epytext.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/accumulators.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/broadcast.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/cloudpickle.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/conf.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/context.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/daemon.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/files.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/find_spark_home.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/heapq3.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/java_gateway.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/join.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/profiler.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/rdd.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/rddsampler.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/resultiterable.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/serializers.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/shell.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/shuffle.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/statcounter.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/status.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/storagelevel.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/taskcontext.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/tests.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/traceback_utils.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/util.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/version.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/__pycache__/worker.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/base.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/classification.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/clustering.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/common.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/evaluation.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/feature.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/fpm.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/pipeline.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/recommendation.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/regression.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/stat.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/tests.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/tuning.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/util.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/__pycache__/wrapper.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/linalg/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/param/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/param/__pycache__/_shared_params_code_gen.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/ml/param/__pycache__/shared.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/classification.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/clustering.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/common.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/evaluation.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/feature.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/fpm.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/random.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/recommendation.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/regression.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/tests.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/tree.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/__pycache__/util.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/linalg/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/linalg/__pycache__/distributed.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/stat/__pycache__/KernelDensity.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/stat/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/stat/__pycache__/_statistics.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/stat/__pycache__/distribution.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/mllib/stat/__pycache__/test.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/python/pyspark/__pycache__/shell.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/catalog.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/column.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/conf.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/context.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/dataframe.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/functions.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/group.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/readwriter.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/session.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/streaming.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/tests.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/types.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/utils.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/sql/__pycache__/window.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/__init__.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/context.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/dstream.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/flume.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/kafka.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/kinesis.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/listener.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/tests.cpython-36.pyc
+   /usr/share/apache-spark/python/pyspark/streaming/__pycache__/util.cpython-36.pyc
+   /usr/share/apache-spark/python/test_support/__pycache__/SimpleHTTPServer.cpython-36.pyc
+   /usr/share/apache-spark/python/test_support/__pycache__/userlibrary.cpython-36.pyc
