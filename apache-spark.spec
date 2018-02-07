@@ -1,6 +1,6 @@
 Name     : apache-spark
 Version  : 2.2.1
-Release  : 38
+Release  : 39
 URL      : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source0  : https://github.com/apache/spark/archive/v2.2.1.tar.gz
 Source1  : spark-script
@@ -52,6 +52,7 @@ bin components for the apache-spark package.
 
 # Remove the mvn that comes with Spark. We'll use our own mvn.
 rm build/mvn
+rm build/sbt*
 
 %build
 export http_proxy=http://127.0.0.1:9/
