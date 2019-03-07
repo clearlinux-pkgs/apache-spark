@@ -1,0 +1,6 @@
+# Remove the mvn that comes with Spark. We'll use our own mvn.
+rm build/mvn
+rm build/sbt*
+
+mkdir -p %{buildroot}
+cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2

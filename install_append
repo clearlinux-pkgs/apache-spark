@@ -1,0 +1,23 @@
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/apache-spark/
+
+tar -xf spark-2.4.0-bin-custom-spark.tgz \
+-C %{buildroot}/usr/share/apache-spark  --strip 1
+
+# Remove cmd files
+find %{buildroot}/usr/share/apache-spark/bin/ -iname *.cmd -delete
+
+# Create default configuration dir
+mkdir -p %{buildroot}/usr/share/defaults/spark
+cp conf/* %{buildroot}/usr/share/defaults/spark/
+
+# Clean up RELEASE file.
+sed -i 's/-Dmaven.repo.local=\(.*\)\/.m2/-Dmaven.repo.local=BUILDROOT\/.m2/' %{buildroot}/usr/share/apache-spark/RELEASE
+
+# Add helper scripts
+mkdir -p %{buildroot}/usr/bin
+for cmd in beeline pyspark spark-class spark-shell spark-sql spark-submit sparkR
+do 
+    sed s/@@CMD@@/$cmd/ spark-script >%{buildroot}/usr/bin/$cmd
+    chmod +x %{buildroot}/usr/bin/$cmd
+done

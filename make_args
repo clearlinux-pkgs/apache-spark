@@ -1,0 +1,1 @@
+|| ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos -Pyarn -Pkubernetes -Dmaven.repo.local=%{buildroot}/.m2/repository --offline

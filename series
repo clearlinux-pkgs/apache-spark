@@ -1,0 +1,3 @@
+Add-javax.ws.rs-in-core-pom.xml.patch
+Dont-generate-SparkR-docs.patch
+spark-script.patch
