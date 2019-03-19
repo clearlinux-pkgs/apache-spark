@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 44
+Release  : 45
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source99 : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz.asc
@@ -21,11 +21,16 @@ Requires: pypandoc
 BuildRequires : R
 BuildRequires : R-digest
 BuildRequires : R-e1071
+BuildRequires : R-highr
+BuildRequires : R-htmltools
 BuildRequires : R-knitr
 BuildRequires : R-magrittr
+BuildRequires : R-markdown
 BuildRequires : R-rmarkdown
 BuildRequires : R-stringr
 BuildRequires : R-testthat
+BuildRequires : R-xfun
+BuildRequires : R-yaml
 BuildRequires : apache-maven
 BuildRequires : buildreq-distutils3
 BuildRequires : openjdk
@@ -35,6 +40,7 @@ BuildRequires : spark-dep
 Patch1: Add-javax.ws.rs-in-core-pom.xml.patch
 Patch2: Dont-generate-SparkR-docs.patch
 Patch3: spark-script.patch
+Patch4: stateless.patch
 
 %description
 Stopwords Corpus
@@ -64,6 +70,7 @@ data components for the apache-spark package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 ## build_prepend content
@@ -76,13 +83,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1551979701
+export SOURCE_DATE_EPOCH=1553036268
 export LDFLAGS="${LDFLAGS} -fno-lto"
 make  %{?_smp_mflags} || ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos -Pyarn -Pkubernetes -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1551979701
+export SOURCE_DATE_EPOCH=1553036268
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
@@ -726,6 +733,7 @@ done
 /usr/share/apache-spark/jars/antlr-runtime-3.4.jar
 /usr/share/apache-spark/jars/antlr4-runtime-4.7.jar
 /usr/share/apache-spark/jars/aopalliance-1.0.jar
+/usr/share/apache-spark/jars/aopalliance-repackaged-2.4.0-b34.jar
 /usr/share/apache-spark/jars/apache-log4j-extras-1.2.17.jar
 /usr/share/apache-spark/jars/apacheds-i18n-2.0.0-M15.jar
 /usr/share/apache-spark/jars/apacheds-kerberos-codec-2.0.0-M15.jar
@@ -802,6 +810,9 @@ done
 /usr/share/apache-spark/jars/hive-exec-1.2.1.spark2.jar
 /usr/share/apache-spark/jars/hive-jdbc-1.2.1.spark2.jar
 /usr/share/apache-spark/jars/hive-metastore-1.2.1.spark2.jar
+/usr/share/apache-spark/jars/hk2-api-2.4.0-b34.jar
+/usr/share/apache-spark/jars/hk2-locator-2.4.0-b34.jar
+/usr/share/apache-spark/jars/hk2-utils-2.4.0-b34.jar
 /usr/share/apache-spark/jars/hppc-0.7.2.jar
 /usr/share/apache-spark/jars/htrace-core-3.1.0-incubating.jar
 /usr/share/apache-spark/jars/httpclient-4.5.6.jar
@@ -819,7 +830,10 @@ done
 /usr/share/apache-spark/jars/jackson-module-scala_2.11-2.6.7.1.jar
 /usr/share/apache-spark/jars/jackson-xc-1.9.13.jar
 /usr/share/apache-spark/jars/janino-3.0.9.jar
+/usr/share/apache-spark/jars/javassist-3.18.1-GA.jar
+/usr/share/apache-spark/jars/javax.annotation-api-1.2.jar
 /usr/share/apache-spark/jars/javax.inject-1.jar
+/usr/share/apache-spark/jars/javax.inject-2.4.0-b34.jar
 /usr/share/apache-spark/jars/javax.servlet-api-3.1.0.jar
 /usr/share/apache-spark/jars/javax.ws.rs-api-2.0.1.jar
 /usr/share/apache-spark/jars/javolution-5.5.1.jar
@@ -830,6 +844,8 @@ done
 /usr/share/apache-spark/jars/jersey-common-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-container-servlet-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-container-servlet-core-2.22.2.jar
+/usr/share/apache-spark/jars/jersey-guava-2.22.2.jar
+/usr/share/apache-spark/jars/jersey-media-jaxb-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-server-2.22.2.jar
 /usr/share/apache-spark/jars/jetty-6.1.26.jar
 /usr/share/apache-spark/jars/jetty-util-6.1.26.jar
@@ -873,6 +889,7 @@ done
 /usr/share/apache-spark/jars/orc-mapreduce-1.5.2-nohive.jar
 /usr/share/apache-spark/jars/orc-shims-1.5.2.jar
 /usr/share/apache-spark/jars/oro-2.0.8.jar
+/usr/share/apache-spark/jars/osgi-resource-locator-1.0.1.jar
 /usr/share/apache-spark/jars/paranamer-2.8.jar
 /usr/share/apache-spark/jars/parquet-column-1.10.0.jar
 /usr/share/apache-spark/jars/parquet-common-1.10.0.jar

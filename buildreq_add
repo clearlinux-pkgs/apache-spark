@@ -3,11 +3,16 @@
 R
 R-digest
 R-e1071
+R-highr
+R-htmltools
 R-knitr
 R-magrittr
+R-markdown
 R-rmarkdown
 R-stringr
 R-testthat
+R-xfun
+R-yaml
 apache-maven
 openjdk
 pandoc
