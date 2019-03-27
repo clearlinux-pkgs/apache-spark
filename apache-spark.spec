@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 45
+Release  : 46
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source99 : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz.asc
@@ -15,9 +15,10 @@ Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 MIT Python-2.0
 Requires: apache-spark-bin = %{version}-%{release}
 Requires: apache-spark-data = %{version}-%{release}
-Requires: Sphinx
-Requires: Unidecode
-Requires: pypandoc
+Requires: R
+Requires: openjdk
+Requires: python3-core
+Requires: scala
 BuildRequires : R
 BuildRequires : R-digest
 BuildRequires : R-e1071
@@ -83,13 +84,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553036268
+export SOURCE_DATE_EPOCH=1553722071
 export LDFLAGS="${LDFLAGS} -fno-lto"
 make  %{?_smp_mflags} || ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos -Pyarn -Pkubernetes -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1553036268
+export SOURCE_DATE_EPOCH=1553722071
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
