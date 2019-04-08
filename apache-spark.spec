@@ -6,9 +6,10 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 48
+Release  : 49
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
+Source1  : set-jar-full-pathname.path
 Source99 : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz.asc
 Summary  : R Frontend for Apache Spark
 Group    : Development/Tools
@@ -34,7 +35,7 @@ BuildRequires : R-xfun
 BuildRequires : R-yaml
 BuildRequires : apache-maven
 BuildRequires : buildreq-distutils3
-BuildRequires : openjdk
+BuildRequires : openjdk11
 BuildRequires : pandoc
 BuildRequires : pypandoc
 BuildRequires : spark-dep
@@ -42,6 +43,10 @@ Patch1: Add-javax.ws.rs-in-core-pom.xml.patch
 Patch2: Dont-generate-SparkR-docs.patch
 Patch3: spark-script.patch
 Patch4: stateless.patch
+Patch5: R-pkg-allow-java11.patch
+Patch6: spark-java11-aggregated-changes.patch
+Patch7: sparkr-vignettes-fix.patch
+Patch8: set-jar-full-pathname.path
 
 %description
 Stopwords Corpus
@@ -72,6 +77,10 @@ data components for the apache-spark package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
 
 %build
 ## build_prepend content
@@ -84,13 +93,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553722071
+export SOURCE_DATE_EPOCH=1554744316
 export LDFLAGS="${LDFLAGS} -fno-lto"
-make  %{?_smp_mflags} || ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Psparkr -Phadoop-2.7 -Phive -Phive-thriftserver -Pmesos -Pyarn -Pkubernetes -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
+make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1553722071
+export SOURCE_DATE_EPOCH=1554744316
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
@@ -112,6 +121,8 @@ cp licenses/LICENSE-respond.txt %{buildroot}/usr/share/package-licenses/apache-s
 cp licenses/LICENSE-sbt-launch-lib.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-sbt-launch-lib.txt
 cp licenses/LICENSE-sorttable.js.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-sorttable.js.txt
 %make_install ||:
+mkdir -p %{buildroot}/usr/lib/systemd/system
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/set-jar-full-pathname.path
 ## install_append content
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/apache-spark/
@@ -236,7 +247,7 @@ done
 /usr/share/apache-spark/data/mllib/sample_svm_data.txt
 /usr/share/apache-spark/data/mllib/streaming_kmeans_data_test.txt
 /usr/share/apache-spark/data/streaming/AFINN-111.txt
-/usr/share/apache-spark/examples/jars/scopt_2.11-3.7.0.jar
+/usr/share/apache-spark/examples/jars/scopt_2.12-3.7.0.jar
 /usr/share/apache-spark/examples/jars/spark-examples_2.11-2.4.0.jar
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaHdfsLR.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaLogQuery.java
@@ -725,9 +736,11 @@ done
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/streaming/StreamingExamples.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/streaming/clickstream/PageViewGenerator.scala
 /usr/share/apache-spark/examples/src/main/scala/org/apache/spark/examples/streaming/clickstream/PageViewStream.scala
+/usr/share/apache-spark/jars/HikariCP-java7-2.4.12.jar
 /usr/share/apache-spark/jars/JavaEWAH-0.3.2.jar
 /usr/share/apache-spark/jars/RoaringBitmap-0.5.11.jar
 /usr/share/apache-spark/jars/ST4-4.0.4.jar
+/usr/share/apache-spark/jars/accessors-smart-1.2.jar
 /usr/share/apache-spark/jars/activation-1.1.1.jar
 /usr/share/apache-spark/jars/aircompressor-0.10.jar
 /usr/share/apache-spark/jars/antlr-2.7.7.jar
@@ -736,76 +749,75 @@ done
 /usr/share/apache-spark/jars/aopalliance-1.0.jar
 /usr/share/apache-spark/jars/aopalliance-repackaged-2.4.0-b34.jar
 /usr/share/apache-spark/jars/apache-log4j-extras-1.2.17.jar
-/usr/share/apache-spark/jars/apacheds-i18n-2.0.0-M15.jar
-/usr/share/apache-spark/jars/apacheds-kerberos-codec-2.0.0-M15.jar
-/usr/share/apache-spark/jars/api-asn1-api-1.0.0-M20.jar
-/usr/share/apache-spark/jars/api-util-1.0.0-M20.jar
 /usr/share/apache-spark/jars/arpack_combined_all-0.1.jar
 /usr/share/apache-spark/jars/arrow-format-0.10.0.jar
 /usr/share/apache-spark/jars/arrow-memory-0.10.0.jar
 /usr/share/apache-spark/jars/arrow-vector-0.10.0.jar
+/usr/share/apache-spark/jars/audience-annotations-0.5.0.jar
 /usr/share/apache-spark/jars/automaton-1.11-8.jar
 /usr/share/apache-spark/jars/avro-1.8.2.jar
 /usr/share/apache-spark/jars/avro-ipc-1.8.2.jar
 /usr/share/apache-spark/jars/avro-mapred-1.8.2-hadoop2.jar
 /usr/share/apache-spark/jars/bonecp-0.8.0.RELEASE.jar
-/usr/share/apache-spark/jars/breeze-macros_2.11-0.13.2.jar
-/usr/share/apache-spark/jars/breeze_2.11-0.13.2.jar
+/usr/share/apache-spark/jars/breeze-macros_2.12-0.13.2.jar
+/usr/share/apache-spark/jars/breeze_2.12-0.13.2.jar
 /usr/share/apache-spark/jars/calcite-avatica-1.2.0-incubating.jar
 /usr/share/apache-spark/jars/calcite-core-1.2.0-incubating.jar
 /usr/share/apache-spark/jars/calcite-linq4j-1.2.0-incubating.jar
 /usr/share/apache-spark/jars/chill-java-0.9.3.jar
-/usr/share/apache-spark/jars/chill_2.11-0.9.3.jar
-/usr/share/apache-spark/jars/commons-beanutils-1.7.0.jar
-/usr/share/apache-spark/jars/commons-beanutils-core-1.8.0.jar
+/usr/share/apache-spark/jars/chill_2.12-0.9.3.jar
+/usr/share/apache-spark/jars/commons-beanutils-1.9.3.jar
 /usr/share/apache-spark/jars/commons-cli-1.2.jar
 /usr/share/apache-spark/jars/commons-codec-1.10.jar
 /usr/share/apache-spark/jars/commons-collections-3.2.2.jar
 /usr/share/apache-spark/jars/commons-compiler-3.0.9.jar
 /usr/share/apache-spark/jars/commons-compress-1.8.1.jar
-/usr/share/apache-spark/jars/commons-configuration-1.6.jar
+/usr/share/apache-spark/jars/commons-configuration2-2.1.1.jar
 /usr/share/apache-spark/jars/commons-crypto-1.0.0.jar
+/usr/share/apache-spark/jars/commons-daemon-1.0.13.jar
 /usr/share/apache-spark/jars/commons-dbcp-1.4.jar
-/usr/share/apache-spark/jars/commons-digester-1.8.jar
 /usr/share/apache-spark/jars/commons-httpclient-3.1.jar
 /usr/share/apache-spark/jars/commons-io-2.4.jar
 /usr/share/apache-spark/jars/commons-lang-2.6.jar
-/usr/share/apache-spark/jars/commons-lang3-3.5.jar
+/usr/share/apache-spark/jars/commons-lang3-3.8.1.jar
 /usr/share/apache-spark/jars/commons-logging-1.1.3.jar
 /usr/share/apache-spark/jars/commons-math3-3.4.1.jar
 /usr/share/apache-spark/jars/commons-net-3.1.jar
 /usr/share/apache-spark/jars/commons-pool-1.5.4.jar
+/usr/share/apache-spark/jars/commons-text-1.4.jar
 /usr/share/apache-spark/jars/compress-lzf-1.0.3.jar
 /usr/share/apache-spark/jars/core-1.1.2.jar
-/usr/share/apache-spark/jars/curator-client-2.7.1.jar
-/usr/share/apache-spark/jars/curator-framework-2.7.1.jar
-/usr/share/apache-spark/jars/curator-recipes-2.7.1.jar
+/usr/share/apache-spark/jars/curator-client-2.6.0.jar
+/usr/share/apache-spark/jars/curator-framework-2.6.0.jar
+/usr/share/apache-spark/jars/curator-recipes-2.6.0.jar
 /usr/share/apache-spark/jars/datanucleus-api-jdo-3.2.6.jar
 /usr/share/apache-spark/jars/datanucleus-core-3.2.10.jar
 /usr/share/apache-spark/jars/datanucleus-rdbms-3.2.9.jar
 /usr/share/apache-spark/jars/derby-10.12.1.1.jar
+/usr/share/apache-spark/jars/dnsjava-2.1.7.jar
+/usr/share/apache-spark/jars/ehcache-3.3.1.jar
 /usr/share/apache-spark/jars/eigenbase-properties-1.1.5.jar
 /usr/share/apache-spark/jars/flatbuffers-1.2.0-3f79e055.jar
 /usr/share/apache-spark/jars/generex-1.0.1.jar
+/usr/share/apache-spark/jars/geronimo-jcache_1.0_spec-1.0-alpha-1.jar
 /usr/share/apache-spark/jars/gson-2.2.4.jar
 /usr/share/apache-spark/jars/guava-14.0.1.jar
-/usr/share/apache-spark/jars/guice-3.0.jar
-/usr/share/apache-spark/jars/guice-servlet-3.0.jar
-/usr/share/apache-spark/jars/hadoop-annotations-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-auth-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-client-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-common-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-hdfs-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-app-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-common-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-core-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-jobclient-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-mapreduce-client-shuffle-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-yarn-api-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-yarn-client-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-yarn-common-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-yarn-server-common-2.7.3.jar
-/usr/share/apache-spark/jars/hadoop-yarn-server-web-proxy-2.7.3.jar
+/usr/share/apache-spark/jars/guice-4.0.jar
+/usr/share/apache-spark/jars/guice-servlet-4.0.jar
+/usr/share/apache-spark/jars/hadoop-annotations-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-auth-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-client-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-common-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-hdfs-client-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-common-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-core-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-mapreduce-client-jobclient-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-api-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-client-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-common-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-registry-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-server-common-3.2.0.jar
+/usr/share/apache-spark/jars/hadoop-yarn-server-web-proxy-3.2.0.jar
 /usr/share/apache-spark/jars/hive-beeline-1.2.1.spark2.jar
 /usr/share/apache-spark/jars/hive-cli-1.2.1.spark2.jar
 /usr/share/apache-spark/jars/hive-exec-1.2.1.spark2.jar
@@ -815,7 +827,7 @@ done
 /usr/share/apache-spark/jars/hk2-locator-2.4.0-b34.jar
 /usr/share/apache-spark/jars/hk2-utils-2.4.0-b34.jar
 /usr/share/apache-spark/jars/hppc-0.7.2.jar
-/usr/share/apache-spark/jars/htrace-core-3.1.0-incubating.jar
+/usr/share/apache-spark/jars/htrace-core4-4.1.0-incubating.jar
 /usr/share/apache-spark/jars/httpclient-4.5.6.jar
 /usr/share/apache-spark/jars/httpcore-4.4.10.jar
 /usr/share/apache-spark/jars/ivy-2.4.0.jar
@@ -824,12 +836,12 @@ done
 /usr/share/apache-spark/jars/jackson-core-asl-1.9.13.jar
 /usr/share/apache-spark/jars/jackson-databind-2.6.7.1.jar
 /usr/share/apache-spark/jars/jackson-dataformat-yaml-2.6.7.jar
-/usr/share/apache-spark/jars/jackson-jaxrs-1.9.13.jar
+/usr/share/apache-spark/jars/jackson-jaxrs-base-2.9.5.jar
+/usr/share/apache-spark/jars/jackson-jaxrs-json-provider-2.9.5.jar
 /usr/share/apache-spark/jars/jackson-mapper-asl-1.9.13.jar
 /usr/share/apache-spark/jars/jackson-module-jaxb-annotations-2.6.7.jar
 /usr/share/apache-spark/jars/jackson-module-paranamer-2.7.9.jar
-/usr/share/apache-spark/jars/jackson-module-scala_2.11-2.6.7.1.jar
-/usr/share/apache-spark/jars/jackson-xc-1.9.13.jar
+/usr/share/apache-spark/jars/jackson-module-scala_2.12-2.6.7.1.jar
 /usr/share/apache-spark/jars/janino-3.0.9.jar
 /usr/share/apache-spark/jars/javassist-3.18.1-GA.jar
 /usr/share/apache-spark/jars/javax.annotation-api-1.2.jar
@@ -838,7 +850,8 @@ done
 /usr/share/apache-spark/jars/javax.servlet-api-3.1.0.jar
 /usr/share/apache-spark/jars/javax.ws.rs-api-2.0.1.jar
 /usr/share/apache-spark/jars/javolution-5.5.1.jar
-/usr/share/apache-spark/jars/jaxb-api-2.2.2.jar
+/usr/share/apache-spark/jars/jaxb-api-2.2.11.jar
+/usr/share/apache-spark/jars/jcip-annotations-1.0-1.jar
 /usr/share/apache-spark/jars/jcl-over-slf4j-1.7.16.jar
 /usr/share/apache-spark/jars/jdo-api-3.0.1.jar
 /usr/share/apache-spark/jars/jersey-client-2.22.2.jar
@@ -848,21 +861,36 @@ done
 /usr/share/apache-spark/jars/jersey-guava-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-media-jaxb-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-server-2.22.2.jar
-/usr/share/apache-spark/jars/jetty-6.1.26.jar
-/usr/share/apache-spark/jars/jetty-util-6.1.26.jar
+/usr/share/apache-spark/jars/jetty-webapp-9.3.24.v20180605.jar
+/usr/share/apache-spark/jars/jetty-xml-9.3.24.v20180605.jar
 /usr/share/apache-spark/jars/jline-2.14.6.jar
 /usr/share/apache-spark/jars/joda-time-2.9.3.jar
 /usr/share/apache-spark/jars/jodd-core-3.5.2.jar
 /usr/share/apache-spark/jars/jpam-1.1.jar
-/usr/share/apache-spark/jars/json4s-ast_2.11-3.5.3.jar
-/usr/share/apache-spark/jars/json4s-core_2.11-3.5.3.jar
-/usr/share/apache-spark/jars/json4s-jackson_2.11-3.5.3.jar
-/usr/share/apache-spark/jars/json4s-scalap_2.11-3.5.3.jar
+/usr/share/apache-spark/jars/json-smart-2.3.jar
+/usr/share/apache-spark/jars/json4s-ast_2.12-3.5.3.jar
+/usr/share/apache-spark/jars/json4s-core_2.12-3.5.3.jar
+/usr/share/apache-spark/jars/json4s-jackson_2.12-3.5.3.jar
+/usr/share/apache-spark/jars/json4s-scalap_2.12-3.5.3.jar
 /usr/share/apache-spark/jars/jsp-api-2.1.jar
 /usr/share/apache-spark/jars/jsr305-1.3.9.jar
 /usr/share/apache-spark/jars/jta-1.1.jar
 /usr/share/apache-spark/jars/jtransforms-2.4.0.jar
 /usr/share/apache-spark/jars/jul-to-slf4j-1.7.16.jar
+/usr/share/apache-spark/jars/kerb-admin-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-client-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-common-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-core-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-crypto-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-identity-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-server-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-simplekdc-1.0.1.jar
+/usr/share/apache-spark/jars/kerb-util-1.0.1.jar
+/usr/share/apache-spark/jars/kerby-asn1-1.0.1.jar
+/usr/share/apache-spark/jars/kerby-config-1.0.1.jar
+/usr/share/apache-spark/jars/kerby-pkix-1.0.1.jar
+/usr/share/apache-spark/jars/kerby-util-1.0.1.jar
+/usr/share/apache-spark/jars/kerby-xdr-1.0.1.jar
 /usr/share/apache-spark/jars/kryo-shaded-4.0.2.jar
 /usr/share/apache-spark/jars/kubernetes-client-3.0.0.jar
 /usr/share/apache-spark/jars/kubernetes-model-2.0.0.jar
@@ -872,17 +900,20 @@ done
 /usr/share/apache-spark/jars/log4j-1.2.17.jar
 /usr/share/apache-spark/jars/logging-interceptor-3.8.1.jar
 /usr/share/apache-spark/jars/lz4-java-1.4.0.jar
-/usr/share/apache-spark/jars/machinist_2.11-0.6.1.jar
-/usr/share/apache-spark/jars/macro-compat_2.11-1.1.1.jar
+/usr/share/apache-spark/jars/machinist_2.12-0.6.1.jar
+/usr/share/apache-spark/jars/macro-compat_2.12-1.1.1.jar
 /usr/share/apache-spark/jars/mesos-1.4.0-shaded-protobuf.jar
 /usr/share/apache-spark/jars/metrics-core-3.1.5.jar
 /usr/share/apache-spark/jars/metrics-graphite-3.1.5.jar
 /usr/share/apache-spark/jars/metrics-json-3.1.5.jar
 /usr/share/apache-spark/jars/metrics-jvm-3.1.5.jar
 /usr/share/apache-spark/jars/minlog-1.3.0.jar
+/usr/share/apache-spark/jars/mssql-jdbc-6.2.1.jre7.jar
 /usr/share/apache-spark/jars/netty-3.9.9.Final.jar
 /usr/share/apache-spark/jars/netty-all-4.1.17.Final.jar
+/usr/share/apache-spark/jars/nimbus-jose-jwt-4.41.1.jar
 /usr/share/apache-spark/jars/objenesis-2.5.1.jar
+/usr/share/apache-spark/jars/okhttp-2.7.5.jar
 /usr/share/apache-spark/jars/okhttp-3.8.1.jar
 /usr/share/apache-spark/jars/okio-1.13.0.jar
 /usr/share/apache-spark/jars/opencsv-2.3.jar
@@ -902,53 +933,54 @@ done
 /usr/share/apache-spark/jars/protobuf-java-2.5.0.jar
 /usr/share/apache-spark/jars/py4j-0.10.7.jar
 /usr/share/apache-spark/jars/pyrolite-4.13.jar
-/usr/share/apache-spark/jars/scala-compiler-2.11.12.jar
-/usr/share/apache-spark/jars/scala-library-2.11.12.jar
-/usr/share/apache-spark/jars/scala-parser-combinators_2.11-1.1.0.jar
-/usr/share/apache-spark/jars/scala-reflect-2.11.12.jar
-/usr/share/apache-spark/jars/scala-xml_2.11-1.0.5.jar
-/usr/share/apache-spark/jars/shapeless_2.11-2.3.2.jar
+/usr/share/apache-spark/jars/re2j-1.1.jar
+/usr/share/apache-spark/jars/scala-compiler-2.12.7.jar
+/usr/share/apache-spark/jars/scala-library-2.12.7.jar
+/usr/share/apache-spark/jars/scala-parser-combinators_2.12-1.1.0.jar
+/usr/share/apache-spark/jars/scala-reflect-2.12.7.jar
+/usr/share/apache-spark/jars/scala-xml_2.12-1.0.5.jar
+/usr/share/apache-spark/jars/shapeless_2.12-2.3.2.jar
 /usr/share/apache-spark/jars/slf4j-api-1.7.16.jar
 /usr/share/apache-spark/jars/slf4j-log4j12-1.7.16.jar
 /usr/share/apache-spark/jars/snakeyaml-1.15.jar
 /usr/share/apache-spark/jars/snappy-0.2.jar
 /usr/share/apache-spark/jars/snappy-java-1.1.7.1.jar
-/usr/share/apache-spark/jars/spark-catalyst_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-core_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-graphx_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-hive-thriftserver_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-hive_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-kubernetes_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-kvstore_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-launcher_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-mesos_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-mllib-local_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-mllib_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-network-common_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-network-shuffle_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-repl_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-sketch_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-sql_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-streaming_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-tags_2.11-2.4.0-tests.jar
-/usr/share/apache-spark/jars/spark-tags_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-unsafe_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spark-yarn_2.11-2.4.0.jar
-/usr/share/apache-spark/jars/spire-macros_2.11-0.13.0.jar
-/usr/share/apache-spark/jars/spire_2.11-0.13.0.jar
-/usr/share/apache-spark/jars/stax-api-1.0-2.jar
+/usr/share/apache-spark/jars/spark-catalyst_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-core_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-graphx_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-hive-thriftserver_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-hive_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-kubernetes_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-kvstore_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-launcher_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-mesos_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-mllib-local_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-mllib_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-network-common_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-network-shuffle_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-repl_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-sketch_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-sql_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-streaming_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-tags_2.12-2.4.0-tests.jar
+/usr/share/apache-spark/jars/spark-tags_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-unsafe_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spark-yarn_2.12-2.4.0.jar
+/usr/share/apache-spark/jars/spire-macros_2.12-0.13.0.jar
+/usr/share/apache-spark/jars/spire_2.12-0.13.0.jar
 /usr/share/apache-spark/jars/stax-api-1.0.1.jar
+/usr/share/apache-spark/jars/stax2-api-3.1.4.jar
 /usr/share/apache-spark/jars/stream-2.7.0.jar
 /usr/share/apache-spark/jars/stringtemplate-3.2.1.jar
 /usr/share/apache-spark/jars/super-csv-2.2.0.jar
+/usr/share/apache-spark/jars/token-provider-1.0.1.jar
 /usr/share/apache-spark/jars/univocity-parsers-2.7.3.jar
 /usr/share/apache-spark/jars/validation-api-1.1.0.Final.jar
+/usr/share/apache-spark/jars/woodstox-core-5.0.3.jar
 /usr/share/apache-spark/jars/xbean-asm6-shaded-4.8.jar
-/usr/share/apache-spark/jars/xercesImpl-2.9.1.jar
-/usr/share/apache-spark/jars/xmlenc-0.52.jar
 /usr/share/apache-spark/jars/xz-1.5.jar
 /usr/share/apache-spark/jars/zjsonpatch-0.3.0.jar
-/usr/share/apache-spark/jars/zookeeper-3.4.6.jar
+/usr/share/apache-spark/jars/zookeeper-3.4.13.jar
 /usr/share/apache-spark/jars/zstd-jni-1.3.2-2.jar
 /usr/share/apache-spark/kubernetes/dockerfiles/spark/Dockerfile
 /usr/share/apache-spark/kubernetes/dockerfiles/spark/bindings/R/Dockerfile

@@ -1,0 +1,38 @@
+From c99e438ab58b15b213a34a53f6c338190d986eca Mon Sep 17 00:00:00 2001
+From: Leonardo Sandoval <leonardo.sandoval.gonzalez@linux.intel.com>
+Date: Thu, 4 Apr 2019 11:16:37 -0600
+Subject: [PATCH apache-spark] include openjdk11 as buildreq_add an
+ requries_add
+
+---
+ buildreq_add | 2 +-
+ requires_add | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/buildreq_add b/buildreq_add
+index 42b1ec6..e0293a6 100644
+--- a/buildreq_add
++++ b/buildreq_add
+@@ -14,6 +14,6 @@ R-testthat
+ R-xfun
+ R-yaml
+ apache-maven
+-openjdk
++openjdk11
+ pandoc
+ spark-dep
+diff --git a/requires_add b/requires_add
+index 2afe1f5..dbefc9e 100644
+--- a/requires_add
++++ b/requires_add
+@@ -1,6 +1,6 @@
+ # This file contains additional runtime requirements that did not get
+ # picked up automatically. One name per line, no whitespace.
+ R
+-openjdk
++openjdk11
+ python3-core
+ scala
+-- 
+2.21.0
+

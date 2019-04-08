@@ -14,6 +14,6 @@ R-testthat
 R-xfun
 R-yaml
 apache-maven
-openjdk
+openjdk11
 pandoc
 spark-dep
