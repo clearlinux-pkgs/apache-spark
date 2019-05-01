@@ -38,6 +38,7 @@ BuildRequires : buildreq-distutils3
 BuildRequires : openjdk11
 BuildRequires : pandoc
 BuildRequires : pypandoc
+BuildRequires : scala
 BuildRequires : spark-dep
 Patch1: Add-javax.ws.rs-in-core-pom.xml.patch
 Patch2: Dont-generate-SparkR-docs.patch
@@ -88,18 +89,19 @@ rm build/mvn
 rm build/sbt*
 mkdir -p %{buildroot}
 cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
+./dev/change-scala-version.sh 2.12
 ## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554744316
+export SOURCE_DATE_EPOCH=1556717622
 export LDFLAGS="${LDFLAGS} -fno-lto"
 make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1554744316
+export SOURCE_DATE_EPOCH=1556717622
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
@@ -248,7 +250,7 @@ done
 /usr/share/apache-spark/data/mllib/streaming_kmeans_data_test.txt
 /usr/share/apache-spark/data/streaming/AFINN-111.txt
 /usr/share/apache-spark/examples/jars/scopt_2.12-3.7.0.jar
-/usr/share/apache-spark/examples/jars/spark-examples_2.11-2.4.0.jar
+/usr/share/apache-spark/examples/jars/spark-examples_2.12-2.4.0.jar
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaHdfsLR.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaLogQuery.java
 /usr/share/apache-spark/examples/src/main/java/org/apache/spark/examples/JavaPageRank.java
@@ -861,8 +863,8 @@ done
 /usr/share/apache-spark/jars/jersey-guava-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-media-jaxb-2.22.2.jar
 /usr/share/apache-spark/jars/jersey-server-2.22.2.jar
-/usr/share/apache-spark/jars/jetty-webapp-9.3.24.v20180605.jar
-/usr/share/apache-spark/jars/jetty-xml-9.3.24.v20180605.jar
+/usr/share/apache-spark/jars/jetty-webapp-9.4.12.v20180830.jar
+/usr/share/apache-spark/jars/jetty-xml-9.4.12.v20180830.jar
 /usr/share/apache-spark/jars/jline-2.14.6.jar
 /usr/share/apache-spark/jars/joda-time-2.9.3.jar
 /usr/share/apache-spark/jars/jodd-core-3.5.2.jar

@@ -4,3 +4,4 @@ rm build/sbt*
 
 mkdir -p %{buildroot}
 cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
+./dev/change-scala-version.sh 2.12

@@ -16,4 +16,5 @@ R-yaml
 apache-maven
 openjdk11
 pandoc
+scala
 spark-dep
