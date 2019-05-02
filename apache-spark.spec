@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 50
+Release  : 51
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
@@ -17,7 +17,7 @@ License  : Apache-2.0 BSD-3-Clause CC0-1.0 MIT Python-2.0
 Requires: apache-spark-bin = %{version}-%{release}
 Requires: apache-spark-data = %{version}-%{release}
 Requires: R
-Requires: openjdk
+Requires: openjdk11
 Requires: python3-core
 Requires: scala
 BuildRequires : R
@@ -95,13 +95,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556717622
+export SOURCE_DATE_EPOCH=1556763319
 export LDFLAGS="${LDFLAGS} -fno-lto"
-make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
+make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Pnetlib-lgpl -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1556717622
+export SOURCE_DATE_EPOCH=1556763319
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
@@ -745,6 +745,7 @@ done
 /usr/share/apache-spark/jars/accessors-smart-1.2.jar
 /usr/share/apache-spark/jars/activation-1.1.1.jar
 /usr/share/apache-spark/jars/aircompressor-0.10.jar
+/usr/share/apache-spark/jars/all-1.1.2.pom
 /usr/share/apache-spark/jars/antlr-2.7.7.jar
 /usr/share/apache-spark/jars/antlr-runtime-3.4.jar
 /usr/share/apache-spark/jars/antlr4-runtime-4.7.jar
@@ -866,6 +867,7 @@ done
 /usr/share/apache-spark/jars/jetty-webapp-9.4.12.v20180830.jar
 /usr/share/apache-spark/jars/jetty-xml-9.4.12.v20180830.jar
 /usr/share/apache-spark/jars/jline-2.14.6.jar
+/usr/share/apache-spark/jars/jniloader-1.1.jar
 /usr/share/apache-spark/jars/joda-time-2.9.3.jar
 /usr/share/apache-spark/jars/jodd-core-3.5.2.jar
 /usr/share/apache-spark/jars/jpam-1.1.jar
@@ -911,6 +913,20 @@ done
 /usr/share/apache-spark/jars/metrics-jvm-3.1.5.jar
 /usr/share/apache-spark/jars/minlog-1.3.0.jar
 /usr/share/apache-spark/jars/mssql-jdbc-6.2.1.jre7.jar
+/usr/share/apache-spark/jars/native_ref-java-1.1.jar
+/usr/share/apache-spark/jars/native_system-java-1.1.jar
+/usr/share/apache-spark/jars/netlib-native_ref-linux-armhf-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-linux-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-linux-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-osx-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-win-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_ref-win-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-linux-armhf-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-linux-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-linux-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-osx-x86_64-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-win-i686-1.1-natives.jar
+/usr/share/apache-spark/jars/netlib-native_system-win-x86_64-1.1-natives.jar
 /usr/share/apache-spark/jars/netty-3.9.9.Final.jar
 /usr/share/apache-spark/jars/netty-all-4.1.17.Final.jar
 /usr/share/apache-spark/jars/nimbus-jose-jwt-4.41.1.jar
