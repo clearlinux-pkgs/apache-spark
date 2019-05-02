@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 51
+Release  : 52
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
@@ -16,6 +16,7 @@ Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 MIT Python-2.0
 Requires: apache-spark-bin = %{version}-%{release}
 Requires: apache-spark-data = %{version}-%{release}
+Requires: apache-spark-lib = %{version}-%{release}
 Requires: R
 Requires: openjdk11
 Requires: python3-core
@@ -72,6 +73,15 @@ Group: Data
 data components for the apache-spark package.
 
 
+%package lib
+Summary: lib components for the apache-spark package.
+Group: Libraries
+Requires: apache-spark-data = %{version}-%{release}
+
+%description lib
+lib components for the apache-spark package.
+
+
 %prep
 %setup -q -n spark-2.4.0
 %patch1 -p1
@@ -95,13 +105,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556763319
+export SOURCE_DATE_EPOCH=1556834103
 export LDFLAGS="${LDFLAGS} -fno-lto"
 make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Pnetlib-lgpl -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1556763319
+export SOURCE_DATE_EPOCH=1556834103
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
@@ -140,6 +150,15 @@ do
 sed s/@@CMD@@/$cmd/ spark-script >%{buildroot}/usr/bin/$cmd
 chmod +x %{buildroot}/usr/bin/$cmd
 done
+mkdir -p %{buildroot}/usr/lib64/haswell
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so.3
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so
+ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so.3
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so.3
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so
+ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so.3
 ## install_append end
 
 %files
@@ -1201,3 +1220,14 @@ done
 /usr/share/defaults/spark/slaves.template
 /usr/share/defaults/spark/spark-defaults.conf.template
 /usr/share/defaults/spark/spark-env.sh.template
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/haswell/libblas.so
+/usr/lib64/haswell/libblas.so.3
+/usr/lib64/haswell/liblapack.so
+/usr/lib64/haswell/liblapack.so.3
+/usr/lib64/libblas.so
+/usr/lib64/libblas.so.3
+/usr/lib64/liblapack.so
+/usr/lib64/liblapack.so.3
