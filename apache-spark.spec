@@ -6,17 +6,16 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 52
+Release  : 53
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
 Source99 : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz.asc
-Summary  : R Frontend for Apache Spark
+Summary  : fast and general engine for large-scale data processing
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 MIT Python-2.0
 Requires: apache-spark-bin = %{version}-%{release}
 Requires: apache-spark-data = %{version}-%{release}
-Requires: apache-spark-lib = %{version}-%{release}
 Requires: R
 Requires: openjdk11
 Requires: python3-core
@@ -51,10 +50,13 @@ Patch7: sparkr-vignettes-fix.patch
 Patch8: set-jar-full-pathname.path
 
 %description
-Stopwords Corpus
-This corpus contains lists of stop words for several languages.  These
-are high-frequency grammatical words which are usually ignored in text
-retrieval applications.
+# Apache Spark
+Spark is a fast and general cluster computing system for Big Data. It provides
+high-level APIs in Scala, Java, Python, and R, and an optimized engine that
+supports general computation graphs for data analysis. It also supports a
+rich set of higher-level tools including Spark SQL for SQL and DataFrames,
+MLlib for machine learning, GraphX for graph processing,
+and Spark Streaming for stream processing.
 
 %package bin
 Summary: bin components for the apache-spark package.
@@ -71,15 +73,6 @@ Group: Data
 
 %description data
 data components for the apache-spark package.
-
-
-%package lib
-Summary: lib components for the apache-spark package.
-Group: Libraries
-Requires: apache-spark-data = %{version}-%{release}
-
-%description lib
-lib components for the apache-spark package.
 
 
 %prep
@@ -104,14 +97,21 @@ cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1556834103
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1562728413
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Pnetlib-lgpl -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
 
 
 %install
-export SOURCE_DATE_EPOCH=1556834103
+export SOURCE_DATE_EPOCH=1562728413
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
 cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
@@ -150,15 +150,6 @@ do
 sed s/@@CMD@@/$cmd/ spark-script >%{buildroot}/usr/bin/$cmd
 chmod +x %{buildroot}/usr/bin/$cmd
 done
-mkdir -p %{buildroot}/usr/lib64/haswell
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so.3
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so.3
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so.3
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so.3
 ## install_append end
 
 %files
@@ -1220,14 +1211,3 @@ ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack
 /usr/share/defaults/spark/slaves.template
 /usr/share/defaults/spark/spark-defaults.conf.template
 /usr/share/defaults/spark/spark-env.sh.template
-
-%files lib
-%defattr(-,root,root,-)
-/usr/lib64/haswell/libblas.so
-/usr/lib64/haswell/libblas.so.3
-/usr/lib64/haswell/liblapack.so
-/usr/lib64/haswell/liblapack.so.3
-/usr/lib64/libblas.so
-/usr/lib64/libblas.so.3
-/usr/lib64/liblapack.so
-/usr/lib64/liblapack.so.3

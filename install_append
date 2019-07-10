@@ -22,15 +22,3 @@ do
     chmod +x %{buildroot}/usr/bin/$cmd
 done
 
-# Create openblas symlinks for netlib-java 
-# https://github.com/fommil/netlib-java#linux
-mkdir -p %{buildroot}/usr/lib64/haswell
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/libblas.so.3
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so
-ln -s /usr/lib64/libopenblas.so %{buildroot}/usr/lib64/liblapack.so.3
-
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/libblas.so.3
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so
-ln -s /usr/lib64/haswell/libopenblas.so %{buildroot}/usr/lib64/haswell/liblapack.so.3
