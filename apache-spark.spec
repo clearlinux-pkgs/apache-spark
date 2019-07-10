@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 53
+Release  : 54
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
