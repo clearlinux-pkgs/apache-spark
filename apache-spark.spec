@@ -6,12 +6,12 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 54
+Release  : 55
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
 Source99 : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz.asc
-Summary  : fast and general engine for large-scale data processing
+Summary  : R Frontend for Apache Spark
 Group    : Development/Tools
 License  : Apache-2.0 BSD-3-Clause CC0-1.0 MIT Python-2.0
 Requires: apache-spark-bin = %{version}-%{release}
@@ -35,11 +35,363 @@ BuildRequires : R-xfun
 BuildRequires : R-yaml
 BuildRequires : apache-maven
 BuildRequires : buildreq-distutils3
+BuildRequires : mvn-HikariCP-java7
+BuildRequires : mvn-JavaEWAH
+BuildRequires : mvn-RoaringBitmap
+BuildRequires : mvn-accessors-smart
+BuildRequires : mvn-activation
+BuildRequires : mvn-aether-core
+BuildRequires : mvn-airbase
+BuildRequires : mvn-aircompressor
+BuildRequires : mvn-ant
+BuildRequires : mvn-ant-launcher
+BuildRequires : mvn-antlr
+BuildRequires : mvn-antlr4
+BuildRequires : mvn-aopalliance
+BuildRequires : mvn-apache
+BuildRequires : mvn-apache-jar-resource-bundle
+BuildRequires : mvn-apache-log4j-extras
+BuildRequires : mvn-apache-rat
+BuildRequires : mvn-arpack_combined_all
+BuildRequires : mvn-arrow
+BuildRequires : mvn-asm
+BuildRequires : mvn-atinject
+BuildRequires : mvn-automaton
+BuildRequires : mvn-avalon-framework
+BuildRequires : mvn-avro
+BuildRequires : mvn-backport-util-concurrent
+BuildRequires : mvn-beanshell
+BuildRequires : mvn-bonecp
+BuildRequires : mvn-bouncycastle
+BuildRequires : mvn-breeze_2.12
+BuildRequires : mvn-build-helper-maven-plugin
+BuildRequires : mvn-calcite
+BuildRequires : mvn-calcite-avatica
+BuildRequires : mvn-cdi-api
+BuildRequires : mvn-cglib
+BuildRequires : mvn-chill-java
+BuildRequires : mvn-classutil_2.12
+BuildRequires : mvn-classworlds
+BuildRequires : mvn-clirr-maven-plugin
+BuildRequires : mvn-codehaus-jackson
+BuildRequires : mvn-commons-beanutils
+BuildRequires : mvn-commons-chain
+BuildRequires : mvn-commons-cli
+BuildRequires : mvn-commons-codec
+BuildRequires : mvn-commons-collections
+BuildRequires : mvn-commons-compress
+BuildRequires : mvn-commons-configuration
+BuildRequires : mvn-commons-configuration2
+BuildRequires : mvn-commons-crypto
+BuildRequires : mvn-commons-csv
+BuildRequires : mvn-commons-daemon
+BuildRequires : mvn-commons-dbcp
+BuildRequires : mvn-commons-digester
+BuildRequires : mvn-commons-exec
+BuildRequires : mvn-commons-httpclient
+BuildRequires : mvn-commons-io
+BuildRequires : mvn-commons-lang
+BuildRequires : mvn-commons-lang3
+BuildRequires : mvn-commons-logging
+BuildRequires : mvn-commons-math
+BuildRequires : mvn-commons-math3
+BuildRequires : mvn-commons-net
+BuildRequires : mvn-commons-parent
+BuildRequires : mvn-commons-pool
+BuildRequires : mvn-commons-text
+BuildRequires : mvn-commons-validator
+BuildRequires : mvn-compiler-interface
+BuildRequires : mvn-compress-lzf
+BuildRequires : mvn-cssparser
+BuildRequires : mvn-curator
+BuildRequires : mvn-datanucleus-api-jdo
+BuildRequires : mvn-datanucleus-core
+BuildRequires : mvn-datanucleus-rdbms
+BuildRequires : mvn-derby
+BuildRequires : mvn-dnsjava
+BuildRequires : mvn-dom4j
+BuildRequires : mvn-doxia
+BuildRequires : mvn-doxia-sitetools
+BuildRequires : mvn-ehcache
+BuildRequires : mvn-eigenbase-properties
+BuildRequires : mvn-enforcer
+BuildRequires : mvn-exec-maven-plugin
+BuildRequires : mvn-fastutil
+BuildRequires : mvn-file-management
+BuildRequires : mvn-flatbuffers
+BuildRequires : mvn-fst
+BuildRequires : mvn-generex
+BuildRequires : mvn-genesis
+BuildRequires : mvn-geronimo-jcache_1.0_spec
+BuildRequires : mvn-google
+BuildRequires : mvn-google-collections
+BuildRequires : mvn-grizzled-scala_2.12
+BuildRequires : mvn-gson
+BuildRequires : mvn-guava
+BuildRequires : mvn-guice
+BuildRequires : mvn-guice-servlet
+BuildRequires : mvn-h2database
+BuildRequires : mvn-hadoop
+BuildRequires : mvn-hamcrest
+BuildRequires : mvn-hive
+BuildRequires : mvn-hive-exec
+BuildRequires : mvn-hive-metastore
+BuildRequires : mvn-hk2
+BuildRequires : mvn-hppc
+BuildRequires : mvn-htmlunit
+BuildRequires : mvn-htmlunit-core-js
+BuildRequires : mvn-htrace
+BuildRequires : mvn-httpcomponents-client
+BuildRequires : mvn-httpcomponents-core
+BuildRequires : mvn-httpcomponents-parent
+BuildRequires : mvn-hydromatic-parent
+BuildRequires : mvn-icu4j
+BuildRequires : mvn-incremental-compiler
+BuildRequires : mvn-ivy
+BuildRequires : mvn-jackson-annotations
+BuildRequires : mvn-jackson-bom
+BuildRequires : mvn-jackson-core
+BuildRequires : mvn-jackson-databind
+BuildRequires : mvn-jackson-dataformat-yaml
+BuildRequires : mvn-jackson-jaxrs-providers
+BuildRequires : mvn-jackson-module-jaxb-annotations
+BuildRequires : mvn-jackson-module-paranamer
+BuildRequires : mvn-jackson-module-scala_2.12
+BuildRequires : mvn-jackson-modules-base
+BuildRequires : mvn-jackson-parent
+BuildRequires : mvn-janino
+BuildRequires : mvn-java-util
+BuildRequires : mvn-javassist
+BuildRequires : mvn-javax-servlet
+BuildRequires : mvn-javax.annotation-api
+BuildRequires : mvn-javax.inject
+BuildRequires : mvn-javax.servlet-api
+BuildRequires : mvn-javax.ws.rs-api
+BuildRequires : mvn-javolution
+BuildRequires : mvn-jaxb-api
+BuildRequires : mvn-jaxb-impl
+BuildRequires : mvn-jcip-annotations
+BuildRequires : mvn-jdependency
+BuildRequires : mvn-jdo-api
+BuildRequires : mvn-jdom2
+BuildRequires : mvn-jersey
+BuildRequires : mvn-jettison
+BuildRequires : mvn-jetty
+BuildRequires : mvn-jetty-parent
+BuildRequires : mvn-jline
+BuildRequires : mvn-jmock
+BuildRequires : mvn-jna
+BuildRequires : mvn-jniloader
+BuildRequires : mvn-joda-time
+BuildRequires : mvn-jodd
+BuildRequires : mvn-jopt-simple
+BuildRequires : mvn-jpam
+BuildRequires : mvn-jpmml-model
+BuildRequires : mvn-jsch
+BuildRequires : mvn-json
+BuildRequires : mvn-json-io
+BuildRequires : mvn-json-smart
+BuildRequires : mvn-json4s
+BuildRequires : mvn-jsoup
+BuildRequires : mvn-jsp-api
+BuildRequires : mvn-jsr250-api
+BuildRequires : mvn-jsr305
+BuildRequires : mvn-jsr311
+BuildRequires : mvn-jta
+BuildRequires : mvn-jtidy
+BuildRequires : mvn-jtransforms
+BuildRequires : mvn-junit
+BuildRequires : mvn-junit-interface
+BuildRequires : mvn-kafka-clients
+BuildRequires : mvn-kafka_2.12
+BuildRequires : mvn-kerby
+BuildRequires : mvn-kryo
+BuildRequires : mvn-kubernetes-client
+BuildRequires : mvn-kubernetes-model
+BuildRequires : mvn-leveldbjni
+BuildRequires : mvn-log4j
+BuildRequires : mvn-logkit
+BuildRequires : mvn-lz4-java
+BuildRequires : mvn-machinist_2.12
+BuildRequires : mvn-macro-compat_2.12
+BuildRequires : mvn-maven
+BuildRequires : mvn-maven-aether-provider
+BuildRequires : mvn-maven-antrun-plugin
+BuildRequires : mvn-maven-archiver
+BuildRequires : mvn-maven-artifact
+BuildRequires : mvn-maven-artifact-manager
+BuildRequires : mvn-maven-artifact-transfer
+BuildRequires : mvn-maven-assembly-plugin
+BuildRequires : mvn-maven-builder-support
+BuildRequires : mvn-maven-checkstyle-plugin
+BuildRequires : mvn-maven-clean-plugin
+BuildRequires : mvn-maven-common-artifact-filters
+BuildRequires : mvn-maven-compat
+BuildRequires : mvn-maven-compiler-plugin
+BuildRequires : mvn-maven-core
+BuildRequires : mvn-maven-dependency-plugin
+BuildRequires : mvn-maven-deploy-plugin
+BuildRequires : mvn-maven-docck-plugin
+BuildRequires : mvn-maven-error-diagnostics
+BuildRequires : mvn-maven-filtering
+BuildRequires : mvn-maven-gpg-plugin
+BuildRequires : mvn-maven-help-plugin
+BuildRequires : mvn-maven-install-plugin
+BuildRequires : mvn-maven-invoker
+BuildRequires : mvn-maven-invoker-plugin
+BuildRequires : mvn-maven-jar-plugin
+BuildRequires : mvn-maven-javadoc-plugin
+BuildRequires : mvn-maven-model
+BuildRequires : mvn-maven-model-builder
+BuildRequires : mvn-maven-monitor
+BuildRequires : mvn-maven-parent
+BuildRequires : mvn-maven-plugin-api
+BuildRequires : mvn-maven-plugin-descriptor
+BuildRequires : mvn-maven-plugin-parameter-documenter
+BuildRequires : mvn-maven-plugin-registry
+BuildRequires : mvn-maven-plugin-tools
+BuildRequires : mvn-maven-plugins
+BuildRequires : mvn-maven-profile
+BuildRequires : mvn-maven-project
+BuildRequires : mvn-maven-project-info-reports-plugin
+BuildRequires : mvn-maven-release
+BuildRequires : mvn-maven-reporting-api
+BuildRequires : mvn-maven-reporting-exec
+BuildRequires : mvn-maven-reporting-impl
+BuildRequires : mvn-maven-repository-metadata
+BuildRequires : mvn-maven-resources-plugin
+BuildRequires : mvn-maven-scm
+BuildRequires : mvn-maven-scm-publish-plugin
+BuildRequires : mvn-maven-settings
+BuildRequires : mvn-maven-settings-builder
+BuildRequires : mvn-maven-shade-plugin
+BuildRequires : mvn-maven-shared
+BuildRequires : mvn-maven-shared-utils
+BuildRequires : mvn-maven-site-plugin
+BuildRequires : mvn-maven-source-plugin
+BuildRequires : mvn-maven-surefire
+BuildRequires : mvn-maven-toolchain
+BuildRequires : mvn-maven-war-plugin
+BuildRequires : mvn-mesos
+BuildRequires : mvn-metrics
+BuildRequires : mvn-minlog
+BuildRequires : mvn-mockito
+BuildRequires : mvn-mojo-parent
+BuildRequires : mvn-mssql-jdbc
+BuildRequires : mvn-mvnplugins
+BuildRequires : mvn-mysql-connector-java
+BuildRequires : mvn-nekohtml
+BuildRequires : mvn-netlib-java
+BuildRequires : mvn-netty
+BuildRequires : mvn-nimbus-jose-jwt
+BuildRequires : mvn-objenesis
+BuildRequires : mvn-okhttp
+BuildRequires : mvn-okio
+BuildRequires : mvn-opencsv
+BuildRequires : mvn-orc
+BuildRequires : mvn-org.eclipse.sisu.inject
+BuildRequires : mvn-org.eclipse.sisu.plexus
+BuildRequires : mvn-oro
+BuildRequires : mvn-osgi-resource-locator
+BuildRequires : mvn-oss-parents
+BuildRequires : mvn-ow2
+BuildRequires : mvn-paranamer
+BuildRequires : mvn-parboiled
+BuildRequires : mvn-parquet-format
+BuildRequires : mvn-parquet-mr
+BuildRequires : mvn-pegdown
+BuildRequires : mvn-pgjdbc
+BuildRequires : mvn-pgjdbc-parent-poms
+BuildRequires : mvn-plexus
+BuildRequires : mvn-plexus-archiver
+BuildRequires : mvn-plexus-build-api
+BuildRequires : mvn-plexus-cipher
+BuildRequires : mvn-plexus-classworlds
+BuildRequires : mvn-plexus-compiler
+BuildRequires : mvn-plexus-containers
+BuildRequires : mvn-plexus-i18n
+BuildRequires : mvn-plexus-interactivity
+BuildRequires : mvn-plexus-interpolation
+BuildRequires : mvn-plexus-io
+BuildRequires : mvn-plexus-languages
+BuildRequires : mvn-plexus-resources
+BuildRequires : mvn-plexus-utils
+BuildRequires : mvn-plexus-velocity
+BuildRequires : mvn-protobuf-java
+BuildRequires : mvn-py4j
+BuildRequires : mvn-pyrolite
+BuildRequires : mvn-qdox
+BuildRequires : mvn-re2j
+BuildRequires : mvn-sac
+BuildRequires : mvn-sbt-interface
+BuildRequires : mvn-scala-compiler
+BuildRequires : mvn-scala-library
+BuildRequires : mvn-scala-logging
+BuildRequires : mvn-scala-maven-plugin
+BuildRequires : mvn-scala-parser-combinators_2.12
+BuildRequires : mvn-scala-reflect
+BuildRequires : mvn-scala-xml_2.12
+BuildRequires : mvn-scalacheck
+BuildRequires : mvn-scalactic_2.12
+BuildRequires : mvn-scalastyle-maven-plugin
+BuildRequires : mvn-scalatest-maven-plugin
+BuildRequires : mvn-scalatest_2.12
+BuildRequires : mvn-scopt_2.12
+BuildRequires : mvn-selenium
+BuildRequires : mvn-servlet-api
+BuildRequires : mvn-shapeless_2.11
+BuildRequires : mvn-shapeless_2.12
+BuildRequires : mvn-sisu
+BuildRequires : mvn-sisu-guice
+BuildRequires : mvn-slf4j
+BuildRequires : mvn-snakeyaml
+BuildRequires : mvn-snappy
+BuildRequires : mvn-snappy-java
+BuildRequires : mvn-sonatype-aether
+BuildRequires : mvn-sonatype-plexus-sec-dispatcher
+BuildRequires : mvn-spire_2.11
+BuildRequires : mvn-spire_2.12
+BuildRequires : mvn-sslext
+BuildRequires : mvn-stax-api
+BuildRequires : mvn-stax2-api
+BuildRequires : mvn-stream-lib
+BuildRequires : mvn-stringtemplate
+BuildRequires : mvn-stringtemplate4
+BuildRequires : mvn-struts
+BuildRequires : mvn-super-csv
+BuildRequires : mvn-test-interface
+BuildRequires : mvn-thrift
+BuildRequires : mvn-treelayout
+BuildRequires : mvn-univocity-parsers
+BuildRequires : mvn-unused
+BuildRequires : mvn-validation-api
+BuildRequires : mvn-velocity
+BuildRequires : mvn-velocity-tools
+BuildRequires : mvn-wagon
+BuildRequires : mvn-webbit
+BuildRequires : mvn-weld-api
+BuildRequires : mvn-weld-parent
+BuildRequires : mvn-woodstox-core
+BuildRequires : mvn-xalan
+BuildRequires : mvn-xbean
+BuildRequires : mvn-xercesImpl
+BuildRequires : mvn-xml-apis
+BuildRequires : mvn-xmlenc
+BuildRequires : mvn-xmlpull
+BuildRequires : mvn-xmlunit
+BuildRequires : mvn-xpp3_min
+BuildRequires : mvn-xstream
+BuildRequires : mvn-xz
+BuildRequires : mvn-yetus
+BuildRequires : mvn-zinc
+BuildRequires : mvn-zjsonpatch
+BuildRequires : mvn-zkclient
+BuildRequires : mvn-zookeeper
+BuildRequires : mvn-zstd-jni
 BuildRequires : openjdk11
 BuildRequires : pandoc
 BuildRequires : pypandoc
 BuildRequires : scala
-BuildRequires : spark-dep
 Patch1: Add-javax.ws.rs-in-core-pom.xml.patch
 Patch2: Dont-generate-SparkR-docs.patch
 Patch3: spark-script.patch
@@ -50,13 +402,10 @@ Patch7: sparkr-vignettes-fix.patch
 Patch8: set-jar-full-pathname.path
 
 %description
-# Apache Spark
-Spark is a fast and general cluster computing system for Big Data. It provides
-high-level APIs in Scala, Java, Python, and R, and an optimized engine that
-supports general computation graphs for data analysis. It also supports a
-rich set of higher-level tools including Spark SQL for SQL and DataFrames,
-MLlib for machine learning, GraphX for graph processing,
-and Spark Streaming for stream processing.
+Stopwords Corpus
+This corpus contains lists of stop words for several languages.  These
+are high-frequency grammatical words which are usually ignored in text
+retrieval applications.
 
 %package bin
 Summary: bin components for the apache-spark package.
@@ -91,48 +440,21 @@ data components for the apache-spark package.
 rm build/mvn
 rm build/sbt*
 mkdir -p %{buildroot}
-cp -r /usr/share/apache-spark/.m2 %{buildroot}/.m2
 ./dev/change-scala-version.sh 2.12
 ## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1562728413
-export GCC_IGNORE_WERROR=1
-export AR=gcc-ar
-export RANLIB=gcc-ranlib
-export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-make  %{?_smp_mflags} || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn /usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 -Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes -Pmesos -Pscala-2.12 -Psparkr -Pyarn -Pnetlib-lgpl -Dmaven.repo.local=%{buildroot}/.m2/repository --offline
-
+mkdir -p %{buildroot}
+cp -r /usr/share/java/.m2 %{buildroot}/.m2
+mvn --offline -Dmaven.repo.local=%{buildroot}/.m2/repository || JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk ./dev/make-distribution.sh --mvn \
+/usr/bin/mvn --name custom-spark --pip --r --tgz -Dhadoop.version=3.2.0 \
+-Dzookeeper.version=3.4.13 -Phadoop-3 -Phive -Phive-thriftserver -Pkubernetes \
+-Pmesos -Pscala-2.12 -Psparkr -Pyarn -Pnetlib-lgpl \
+-Dmaven.repo.local=%{buildroot}/.m2/repository --offline --fae
 
 %install
-export SOURCE_DATE_EPOCH=1562728413
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/package-licenses/apache-spark
-cp LICENSE %{buildroot}/usr/share/package-licenses/apache-spark/LICENSE
-cp licenses/LICENSE-AnchorJS.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-AnchorJS.txt
-cp licenses/LICENSE-CC0.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-CC0.txt
-cp licenses/LICENSE-bootstrap.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-bootstrap.txt
-cp licenses/LICENSE-cloudpickle.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-cloudpickle.txt
-cp licenses/LICENSE-d3.min.js.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-d3.min.js.txt
-cp licenses/LICENSE-dagre-d3.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-dagre-d3.txt
-cp licenses/LICENSE-datatables.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-datatables.txt
-cp licenses/LICENSE-graphlib-dot.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-graphlib-dot.txt
-cp licenses/LICENSE-heapq.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-heapq.txt
-cp licenses/LICENSE-join.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-join.txt
-cp licenses/LICENSE-jquery.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-jquery.txt
-cp licenses/LICENSE-json-formatter.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-json-formatter.txt
-cp licenses/LICENSE-modernizr.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-modernizr.txt
-cp licenses/LICENSE-py4j.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-py4j.txt
-cp licenses/LICENSE-respond.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-respond.txt
-cp licenses/LICENSE-sbt-launch-lib.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-sbt-launch-lib.txt
-cp licenses/LICENSE-sorttable.js.txt %{buildroot}/usr/share/package-licenses/apache-spark/licenses_LICENSE-sorttable.js.txt
-%make_install ||:
+
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/set-jar-full-pathname.path
 ## install_append content

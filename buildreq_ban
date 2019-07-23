@@ -1,4 +1,9 @@
 # This file contains build requirements that get picked up but are
 # undesirable. One entry per line, no whitespace.
-jdk-all
+mvn-ST4
+mvn-all
+mvn-lifecycle-mapping
+mvn-sisu-plexus
+openjdk
+openjdk-dev
 py4j
