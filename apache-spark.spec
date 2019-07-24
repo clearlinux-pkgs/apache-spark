@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 56
+Release  : 57
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
@@ -55,7 +55,6 @@ BuildRequires : mvn-apache-rat
 BuildRequires : mvn-arpack_combined_all
 BuildRequires : mvn-arrow
 BuildRequires : mvn-asm
-BuildRequires : mvn-atinject
 BuildRequires : mvn-automaton
 BuildRequires : mvn-avalon-framework
 BuildRequires : mvn-avro

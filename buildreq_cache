@@ -6,7 +6,6 @@ mvn-ant
 mvn-ant-launcher
 mvn-apache-jar-resource-bundle
 mvn-apache-rat
-mvn-atinject
 mvn-automaton
 mvn-avalon-framework
 mvn-backport-util-concurrent
