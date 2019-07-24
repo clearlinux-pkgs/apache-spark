@@ -49,8 +49,6 @@ mvn-grizzled-scala_2.12
 mvn-guice-servlet
 mvn-h2database
 mvn-hive
-mvn-hive-exec
-mvn-hive-metastore
 mvn-htmlunit
 mvn-htmlunit-core-js
 mvn-httpcomponents-parent
@@ -82,7 +80,6 @@ mvn-kafka-clients
 mvn-kafka_2.12
 mvn-kerby
 mvn-kubernetes-client
-mvn-kubernetes-model
 mvn-logkit
 mvn-machinist_2.12
 mvn-macro-compat_2.12

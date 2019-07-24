@@ -6,7 +6,7 @@
 #
 Name     : apache-spark
 Version  : 2.4.0
-Release  : 55
+Release  : 56
 URL      : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source0  : https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0.tgz
 Source1  : set-jar-full-pathname.path
@@ -134,8 +134,6 @@ BuildRequires : mvn-h2database
 BuildRequires : mvn-hadoop
 BuildRequires : mvn-hamcrest
 BuildRequires : mvn-hive
-BuildRequires : mvn-hive-exec
-BuildRequires : mvn-hive-metastore
 BuildRequires : mvn-hk2
 BuildRequires : mvn-hppc
 BuildRequires : mvn-htmlunit
@@ -207,7 +205,6 @@ BuildRequires : mvn-kafka_2.12
 BuildRequires : mvn-kerby
 BuildRequires : mvn-kryo
 BuildRequires : mvn-kubernetes-client
-BuildRequires : mvn-kubernetes-model
 BuildRequires : mvn-leveldbjni
 BuildRequires : mvn-log4j
 BuildRequires : mvn-logkit
